@@ -9,4 +9,5 @@ if Todo.count == 0
   end
 else
   puts 'skip'
+  puts 'これはテストです'
 end
