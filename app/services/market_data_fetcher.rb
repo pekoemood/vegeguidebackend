@@ -6,7 +6,7 @@ class MarketDataFetcher
     @options = { query: { cc: city, cat: cat }}
   end
 
-  def access
+  def fetch
     self.class.get("/wmr", @options)
   end
 end

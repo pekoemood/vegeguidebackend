@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vegetable: one
+  price: 1
+  market: MyString
+  date: 2025-04-12
+  price_variation: 9.99
+
+two:
+  vegetable: two
+  price: 1
+  market: MyString
+  date: 2025-04-12
+  price_variation: 9.99

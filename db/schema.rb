@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_06_005957) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_12_023838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "prices", force: :cascade do |t|
+    t.bigint "vegetable_id", null: false
+    t.integer "price", null: false
+    t.string "market", null: false
+    t.date "date", null: false
+    t.decimal "price_variation", precision: 5, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vegetable_id"], name: "index_prices_on_vegetable_id"
+  end
 
   create_table "todos", force: :cascade do |t|
     t.string "title"
@@ -20,4 +31,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_06_005957) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "vegetables", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "season"
+    t.string "origin"
+    t.string "storage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_vegetables_on_name", unique: true
+  end
+
+  add_foreign_key "prices", "vegetables"
 end
