@@ -1,0 +1,19 @@
+:concurrency: 5
+:queues:
+  - default
+
+:timeout: 25
+:logfile: ./log/sidekiq.log
+:pidfile: ./tmp/pids/sidekiq.pid
+
+:redis:
+  url: redis://redis:6379/0
+  namespace: sidekiq
+
+:scheduler:
+  :schedule:
+    import_market_data_job:
+      cron: "0 22 * * *"
+      class: ImportMarketDataJob
+      # args:
+      #   - 'スケジュールの実行'

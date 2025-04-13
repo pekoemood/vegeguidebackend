@@ -15,7 +15,6 @@ class MarketDataImporter
       next if price.nil? || price_variation.nil?
 
       begin
-      
         new_vegetable = Vegetable.find_or_create_by!(name: vegetable_name)
 
         new_vegetable.prices.create!(
