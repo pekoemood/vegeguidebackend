@@ -2,7 +2,7 @@ require 'csv'
 
 csv_file_path = Rails.root.join('db', 'vegeguide.csv') 
 
-CSV.foreach(csv_file_path, headers: true, encoding: 'bom|urf-8') do |row|
+CSV.foreach(csv_file_path, headers: true, encoding: 'bom|utf-8') do |row|
     Vegetable.create!(
       name: row['name'],
       description: row['description'],
