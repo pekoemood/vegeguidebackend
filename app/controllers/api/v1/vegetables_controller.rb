@@ -1,6 +1,6 @@
 class Api::V1::VegetablesController < ApplicationController
   def index
-    vegetables = Vegetable.all
+    vegetables = Vegetable.where(id:[3, 11, 12, 25, 27, 28, 30, 39])
     json = VegetableSerializer.new(vegetables, options).serializable_hash.to_json
     render json: json
   end
