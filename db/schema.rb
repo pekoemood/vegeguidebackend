@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_16_143154) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_19_073807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,7 +36,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_16_143154) do
   create_table "vegetables", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.string "season"
     t.string "origin"
     t.string "storage"
     t.datetime "created_at", null: false
