@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_19_132521) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_20_040944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "nutrition_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "unit", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_nutrition_types_on_name", unique: true
+  end
 
   create_table "prices", force: :cascade do |t|
     t.bigint "vegetable_id", null: false
@@ -24,6 +32,27 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_19_132521) do
     t.datetime "updated_at", null: false
     t.index ["vegetable_id", "market", "date"], name: "index_prices_on_vegetable_id_and_market_and_date", unique: true
     t.index ["vegetable_id"], name: "index_prices_on_vegetable_id"
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.bigint "vegetable_id", null: false
+    t.integer "start_month"
+    t.integer "end_month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "note"
+    t.index ["vegetable_id"], name: "index_seasons_on_vegetable_id"
+  end
+
+  create_table "vegetable_nutritions", force: :cascade do |t|
+    t.bigint "vegetable_id", null: false
+    t.bigint "nutrition_type_id", null: false
+    t.decimal "amount", precision: 6, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nutrition_type_id"], name: "index_vegetable_nutritions_on_nutrition_type_id"
+    t.index ["vegetable_id", "nutrition_type_id"], name: "idx_on_vegetable_id_nutrition_type_id_fceaa12b73", unique: true
+    t.index ["vegetable_id"], name: "index_vegetable_nutritions_on_vegetable_id"
   end
 
   create_table "vegetables", force: :cascade do |t|
@@ -38,4 +67,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_19_132521) do
   end
 
   add_foreign_key "prices", "vegetables"
+  add_foreign_key "seasons", "vegetables"
+  add_foreign_key "vegetable_nutritions", "nutrition_types"
+  add_foreign_key "vegetable_nutritions", "vegetables"
 end
