@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get "recipe_generations/create"
       resources :vegetables, only: %i( index show )
     end
   end
