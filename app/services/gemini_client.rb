@@ -5,7 +5,31 @@ class GeminiClient
 
   def initialize(vegetable='キャベツ')
     @api_key = Rails.application.credentials.dig(:gemini, :api_key)
-    @text = "#{vegetable}のレシピを出力して"
+    @text = <<~TEXT
+        #{vegetable}を使用したレシピを１つ、以下のJSON形式で出力してください。
+        出力は日本語で、以下のJSONk構造に厳密に従ってください。JSON以外の説明文などは含めないでください。
+        ```json
+        {
+          "name": "レシピ名",
+          "instructions": "レシピの簡単な説明",
+          "cooking_time": "調理時間",
+          "difficulty": "調理の難易度",
+          "step": [
+                    {
+                    "step_number": "手順の番号",
+                    "description": "調理手順"
+                    }
+                  ],
+          "ingredients":  [
+                            {
+                              "name": "材料名",
+                              "amount": "量",
+                              "unit": "単位"
+                            }
+                          ] 
+
+        }
+    TEXT
   end
 
   def generate_recipe
