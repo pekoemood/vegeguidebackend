@@ -47,7 +47,9 @@ class GeminiClient
       }.to_json
     }
 
-    response = self.class.post("", options)
-    return response
+    response = self.class.post("", options).parsed_response
+    text_block = response["candidates"][0]["content"]["parts"][0]["text"]
+    text = text_block.match(/```json\n(.*)\n```/m)[1] rescue "{}"
+    return text
   end
 end
