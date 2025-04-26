@@ -74,6 +74,7 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     ast (2.4.3)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
     bootsnap (1.18.4)
@@ -112,6 +113,8 @@ GEM
     json (2.10.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
+    jwt (2.10.1)
+      base64
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -272,11 +275,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap
   brakeman
   debug
   httparty
   jsonapi-serializer
+  jwt
   pg (~> 1.1)
   puma (>= 5.0)
   rack-cors

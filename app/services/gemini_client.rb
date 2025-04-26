@@ -7,13 +7,15 @@ class GeminiClient
     @api_key = Rails.application.credentials.dig(:gemini, :api_key)
     @text = <<~TEXT
         #{vegetable}を使用したレシピを１つ、以下のJSON形式で出力してください。
-        出力は日本語で、以下のJSONk構造に厳密に従ってください。JSON以外の説明文などは含めないでください。
+        出力は日本語で、以下のJSON構造に厳密に従ってください。JSON以外の説明文などは含めないでください。
+        特に,"servings"の値は文字列ではなく数値（Number型）で出力してください。
         ```json
         {
           "name": "レシピ名",
           "instructions": "レシピの簡単な説明",
           "cooking_time": "調理時間",
           "difficulty": "調理の難易度",
+          "servings": "1",
           "step": [
                     {
                     "step_number": "手順の番号",

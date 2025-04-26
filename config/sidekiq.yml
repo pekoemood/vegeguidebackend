@@ -18,5 +18,5 @@
       # args:
       #   - 'スケジュールの実行'
     export_prices_to_csv:
-      cron: "0 22 * * *"
+      cron: "0 23 * * *"
       class: ExportPricesToCsv
