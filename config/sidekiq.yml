@@ -17,3 +17,6 @@
       class: ImportMarketDataJob
       # args:
       #   - 'スケジュールの実行'
+    export_prices_to_csv:
+      cron: "0 22 * * *"
+      class: ExportPricesToCsv
