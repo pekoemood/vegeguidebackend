@@ -2,6 +2,7 @@ require 'csv'
 
 csv_file_path = Rails.root.join('db', 'vegeguide.csv') 
 nutrition_csv_path = Rails.root.join('db', 'vegetable_nutritions.csv')
+price_csv_path = Rails.root.join('db', 'backup', 'prices_backup.csv')
 
 CSV.foreach(csv_file_path, headers: true, encoding: 'utf-8') do |row|
   vegetable = Vegetable.find_or_initialize_by(name: row['name'])
@@ -63,4 +64,25 @@ CSV.foreach(nutrition_csv_path, headers: true, encoding: 'utf-8') do |row|
   else
     puts "野菜名または栄養素名が見つかりませんでした。#{vegetable_name}/ #{nutrition_name}"
   end
+end
+
+#価格情報の登録
+CSV.foreach(price_csv_path, headers: true, encoding: 'utf-8') do |row|
+  vegetable_id = row['vegetable_id'].to_i
+  date = row['date']
+
+  next if Price.exists?(vegetable_id: vegetable_id, date: date)
+
+  vegetable = Vegetable.find_by(id: vegetable_id)
+  unless vegetable
+    puts "#{vegetable_id}が見つかりませんでした"
+    next
+  end
+  
+  vegetable.prices.create!(
+    price: row['price'].to_i,
+    market: row['market'],
+    date: row['date'],
+    price_variation: row['price_variation']
+  )
 end
