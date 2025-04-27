@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "recipe_generations", to: "recipe_generations#create"
+      post "login", to: "authentication#login"
+      get "show_request", to: "authentication#show_request"
       resources :users, only: %i( create )
       resources :vegetables, only: %i( index show )
     end
