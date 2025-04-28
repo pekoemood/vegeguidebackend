@@ -6,7 +6,7 @@ class Api::V1::VegetablesController < ApplicationController
   end
 
   def show
-    vegetable = Vegetable.includes(vegetable_nutritions: :nutrition_type).find(params[:id])
+    vegetable = Vegetable.find_by(id: params[:id])
     render json: VegetableSerializer.new(vegetable).serializable_hash.to_json
   end
 

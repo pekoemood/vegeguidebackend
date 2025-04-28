@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
 
       render json: { status: "ユーザーの登録に成功しました" }
     else
-      render json: { error: "ユーザーの登録に失敗しました" }, status: :unprocessable_entity
+      render json: { error: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
