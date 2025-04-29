@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_28_093744) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_29_102910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ingredients", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.string "name"
+    t.float "amount"
+    t.string "unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
+  end
 
   create_table "nutrition_types", force: :cascade do |t|
     t.string "name", null: false
@@ -34,6 +44,28 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_28_093744) do
     t.index ["vegetable_id"], name: "index_prices_on_vegetable_id"
   end
 
+  create_table "recipe_steps", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.integer "step_number"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id", "step_number"], name: "index_recipe_steps_on_recipe_id_and_step_number", unique: true
+    t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.text "instructions"
+    t.integer "cooking_time"
+    t.string "difficulty"
+    t.integer "servings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recipes_on_user_id"
+  end
+
   create_table "seasons", force: :cascade do |t|
     t.bigint "vegetable_id", null: false
     t.integer "start_month"
@@ -42,6 +74,27 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_28_093744) do
     t.datetime "updated_at", null: false
     t.string "note"
     t.index ["vegetable_id"], name: "index_seasons_on_vegetable_id"
+  end
+
+  create_table "shopping_list_items", force: :cascade do |t|
+    t.bigint "shopping_list_id", null: false
+    t.bigint "recipe_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.boolean "checked", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_shopping_list_items_on_ingredient_id"
+    t.index ["recipe_id"], name: "index_shopping_list_items_on_recipe_id"
+    t.index ["shopping_list_id", "ingredient_id"], name: "idx_on_shopping_list_id_ingredient_id_f6963fd74f", unique: true
+    t.index ["shopping_list_id"], name: "index_shopping_list_items_on_shopping_list_id"
+  end
+
+  create_table "shopping_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shopping_lists_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,8 +128,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_28_093744) do
     t.index ["name"], name: "index_vegetables_on_name", unique: true
   end
 
+  add_foreign_key "ingredients", "recipes"
   add_foreign_key "prices", "vegetables"
+  add_foreign_key "recipe_steps", "recipes"
+  add_foreign_key "recipes", "users"
   add_foreign_key "seasons", "vegetables"
+  add_foreign_key "shopping_list_items", "ingredients"
+  add_foreign_key "shopping_list_items", "recipes"
+  add_foreign_key "shopping_list_items", "shopping_lists"
+  add_foreign_key "shopping_lists", "users"
   add_foreign_key "vegetable_nutritions", "nutrition_types"
   add_foreign_key "vegetable_nutritions", "vegetables"
 end
