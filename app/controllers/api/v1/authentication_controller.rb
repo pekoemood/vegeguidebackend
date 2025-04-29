@@ -1,5 +1,5 @@
 class Api::V1::AuthenticationController < ApplicationController
-  require 'jwt'
+
   def login
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
@@ -22,12 +22,19 @@ class Api::V1::AuthenticationController < ApplicationController
     render json: { message: 'ログアウトしました' }, status: :ok
   end
 
+  def check_login_status
+    if @current_user
+      render json: { logged_in: true, name: @current_user.name }
+    else
+      render json: { logged_in: false }
+    end
+  end
+
+
   def show_request
     token = cookies[:jwt]
     decode = TokenGenerator.decode(token)['token']
     user = User.find_by(id: decode)
-
-
     render json: { name: user.name, email: user.email }
   end
 end
