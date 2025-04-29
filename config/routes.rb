@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post "recipe_generations", to: "recipe_generations#create"
       post "login", to: "authentication#login"
       post "logout", to: 'authentication#logout'
+      get 'check_login_status', to: 'authentication#check_login_status'
       get "show_request", to: "authentication#show_request"
       resources :users, only: %i( create )
       resources :vegetables, only: %i( index show )
