@@ -50,6 +50,7 @@ class GeminiClient
     }
 
     response = self.class.post("", options).parsed_response
+    Rails.logger.info("Gemini API response: #{response}")
     text_block = response["candidates"][0]["content"]["parts"][0]["text"]
     text = text_block.match(/```json\n(.*)\n```/m)[1] rescue "{}"
     return text
