@@ -9,8 +9,8 @@ class ShoppingListCreator
       recipe = create_recipe
 
       if recipe.persisted?
-        shopping_list = add_to_shopping_list(recipe)
-        return { success: true, shopping_list: shopping_list }
+        add_to_shopping_list(recipe)
+        return { success: true }
       else
         raise ActiveRecord::Rollback, 'レシピ作成に失敗しました'
       end
@@ -39,6 +39,5 @@ class ShoppingListCreator
     recipe.ingredients.each do |ingredient|
       shopping_list.shopping_list_items.create!(ingredient: ingredient, recipe: recipe)
     end
-    return shopping_list
   end
 end
