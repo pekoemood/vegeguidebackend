@@ -10,6 +10,7 @@ class ShoppingListSerializer
   attribute :shopping_items do |shopping_list|
     shopping_list.shopping_list_items.map do |item|
       {
+        id: item.ingredient.id,
         name: item.ingredient.name,
         amount: item.ingredient.amount,
         unit: item.ingredient.unit,
