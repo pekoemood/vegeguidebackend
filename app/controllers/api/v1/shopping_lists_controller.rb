@@ -39,6 +39,19 @@ class Api::V1::ShoppingListsController < ApplicationController
     render json: { error: "エラーが発生しました: #{e.message}" }, status: :internal_server_error
   end
 
+  def destroy
+    shopping_list = @current_user.shopping_lists.find_by(id: params[:id])
+    unless shopping_list
+      return render json: { error: 'リストが見つかりません' }, status: :not_found
+    end
+    
+    if shopping_list.destroy
+      render json: { success: 'リストの削除に成功しました'}, status: :ok
+    else
+      render json: { error: 'リストの削除に失敗しました'}, status: :internal_server_error
+    end
+  end
+
   private 
 
   def recipe_params
