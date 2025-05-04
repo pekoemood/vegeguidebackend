@@ -34,7 +34,7 @@ class ShoppingListCreator
   end
 
   def add_to_shopping_list(recipe)
-    shopping_list = @current_user.shopping_lists.create!(name: "#{recipe.name}の材料リスト")
+    shopping_list = @current_user.shopping_lists.create!(name: "#{recipe.name}")
 
     recipe.ingredients.each do |ingredient|
       shopping_list.shopping_list_items.create!(ingredient: ingredient, recipe: recipe)
