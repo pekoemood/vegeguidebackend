@@ -1,7 +1,7 @@
 class RecipeSerializer
   include JSONAPI::Serializer
 
-  attributes :id, :name, :instructions, :cooking_time, :servings
+  attributes :id, :name, :instructions, :cooking_time, :servings, :difficulty
 
   attribute :ingredients do |recipe|
     recipe.ingredients.map do |ingredient|
