@@ -6,6 +6,10 @@ class Api::V1::RecipesController < ApplicationController
     render json: RecipeSerializer.new(user_recipe).serializable_hash.to_json
   end
 
+  def show
+    user_recipe = @current_user.recipes.find_by(id: params[:id])
+    render json: RecipeSerializer.new(user_recipe).serializable_hash.to_json
+  end
 
 
   private 
