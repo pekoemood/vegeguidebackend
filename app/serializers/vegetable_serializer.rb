@@ -35,11 +35,4 @@ class VegetableSerializer
       }
     end
   end
-
-
-
-  # has_many :prices, serializer: PriceSerializer
-  # has_many :seasons, serializer: SeasonSerializer
-  # has_many :nutrition_types, serializer: NutritionTypeSerializer
-  # has_many :vegetable_nutritions, serializer: VegetableNutritionSerializer
 end
