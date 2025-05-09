@@ -52,6 +52,23 @@ class Api::V1::ShoppingListsController < ApplicationController
     end
   end
 
+  def from_recipe
+    recipe = @current_user.recipes.find_by(id: params[:recipe_id])
+    
+    return render json: { message: 'レシピが見つかりません' }, status: :not_found if recipe.blank?
+
+    ActiveRecord::Base.transaction do
+      shopping_list = @current_user.shopping_lists.create!(name: recipe.name)
+      recipe.ingredients.each do |ingredient|
+        shopping_list.shopping_list_items.create!(recipe: recipe, ingredient: ingredient)
+      end
+    end
+
+    render json: { message: '買い物リストの作成に成功しました' }, status: :created
+  rescue => e
+    render json: { message: '買い物リストの作成に失敗しました', error: e.message }, status: :unprocessable_entity
+  end
+
   private 
 
   def recipe_params
