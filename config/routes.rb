@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
       resources :users, only: %i( create )
       resources :vegetables, only: %i( index show )
+      get "/health", to: proc { [200, { "Content-Type" => "application/json" }, [{ status: "ok" }.to_json]]}
     end
   end
 end
