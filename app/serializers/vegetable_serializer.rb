@@ -9,7 +9,15 @@ class VegetableSerializer
         price: vp.price,
         market: vp.market,
         date: vp.date,
-        price_variation: vp.price_variation,
+      }
+    end
+  end
+
+  attribute :monthly_prices do |vegetable|
+    Price.monthly_average_for(vegetable.id).map do |record|
+      {
+        month: record.month.strftime("%Y-%m"),
+        average_price: record.average_price.to_f
       }
     end
   end

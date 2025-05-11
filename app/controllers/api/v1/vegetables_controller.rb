@@ -12,7 +12,7 @@ class Api::V1::VegetablesController < ApplicationController
     }
 
     vegetables = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type).limit(page_size).offset(page_number * page_size)
-    json = VegetableSerializer.new(vegetables, option).serializable_hash
+    json = VegetableSerializer.new(vegetables).serializable_hash
     render json: json
   end
 
