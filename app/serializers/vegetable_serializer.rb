@@ -3,16 +3,6 @@ class VegetableSerializer
 
   attributes :id, :name, :description, :origin, :storage, :image_url
 
-  attribute :prices do |vegetable|
-    vegetable.prices.map do |vp|
-      {
-        price: vp.price,
-        market: vp.market,
-        date: vp.date,
-      }
-    end
-  end
-
   attribute :monthly_prices do |vegetable|
     Price.monthly_average_for(vegetable.id).map do |record|
       {
@@ -20,6 +10,20 @@ class VegetableSerializer
         average_price: record.average_price.to_i
       }
     end
+  end
+
+  attribute :latest_price do |vegetable|
+    price = Price.latest_price_for(vegetable.id)
+      {
+        latest_price: price.price
+      }
+  end
+
+  attribute :compare_last_month do |vegetable|
+    change_rate = Price.compare_last_month(vegetable.id)
+      {
+        compare_price: change_rate
+      }
   end
 
   attribute :seasons do |vegetable|
