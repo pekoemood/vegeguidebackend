@@ -15,7 +15,7 @@ class VegetableSerializer
   attribute :latest_price do |vegetable|
     price = Price.latest_price_for(vegetable.id)
       {
-        latest_price: price.price
+        latest_price: price&.price
       }
   end
 
