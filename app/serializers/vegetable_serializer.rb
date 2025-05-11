@@ -17,7 +17,7 @@ class VegetableSerializer
     Price.monthly_average_for(vegetable.id).map do |record|
       {
         month: record.month.strftime("%Y-%m"),
-        average_price: record.average_price.to_f
+        average_price: record.average_price.to_i
       }
     end
   end
