@@ -10,10 +10,17 @@ class Api::V1::VegetablesController < ApplicationController
         current_page: page_number,
       }
     }
+    keyword = params[:keyword]
 
-    vegetables = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type).limit(page_size).offset(page_number * page_size)
-    json = VegetableSerializer.new(vegetables, option).serializable_hash
-    render json: json
+    vegetables = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type)
+
+    if keyword.present?
+      vegetables = vegetables.where("name LIKE ?", "%#{keyword}%")
+    end
+    
+    vegetables = vegetables.limit(page_size).offset(page_number * page_size)
+
+    render json: VegetableSerializer.new(vegetables, option).serializable_hash
   end
 
   def show
