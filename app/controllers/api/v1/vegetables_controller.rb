@@ -1,5 +1,14 @@
 class Api::V1::VegetablesController < ApplicationController
   def index
+
+    keyword = params[:keyword]
+
+    vegetables = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type)
+
+    if keyword.present?
+      vegetables = vegetables.where("name LIKE ?", "%#{keyword}%")
+    end
+
     page_size = 8
     page_number = params[:page].nil? ? 0 : params[:page].to_i - 1
     total_count = Vegetable.count
@@ -10,13 +19,6 @@ class Api::V1::VegetablesController < ApplicationController
         current_page: page_number,
       }
     }
-    keyword = params[:keyword]
-
-    vegetables = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type)
-
-    if keyword.present?
-      vegetables = vegetables.where("name LIKE ?", "%#{keyword}%")
-    end
     
     vegetables = vegetables.limit(page_size).offset(page_number * page_size)
 
