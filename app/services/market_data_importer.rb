@@ -23,7 +23,6 @@ class MarketDataImporter
           price: price, 
           market: city, 
           date: date, 
-          price_variation: price_variation
           )
       rescue => e
         Rails.logger.error("インポートに失敗しました#{vegetable_name}#{price}: #{e.message}")
