@@ -3,6 +3,8 @@ class Api::V1::VegetablesController < ApplicationController
 
     keyword = params[:keyword]
     season = params[:season]
+    discounted = params[:discounted]
+    
 
     vegetables = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type)
 
@@ -14,7 +16,10 @@ class Api::V1::VegetablesController < ApplicationController
       vegetables = vegetables.joins(:seasons).merge(Season.in_season)
     end
 
-
+    if discounted == "true"
+      discounted_vegetable_ids = Price.vegetable_ids_with_price_drop
+      vegetables = vegetables.where(id: discounted_vegetable_ids)
+    end
 
     page_size = 8
     page_number = params[:page].nil? ? 0 : params[:page].to_i - 1
