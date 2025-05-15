@@ -15,7 +15,7 @@ class VegetableSerializer
   attribute :latest_price do |vegetable|
     price = Price.latest_price_for(vegetable.id)
       {
-        latest_price: price&.price
+        latest_price: price.price
       }
   end
 
@@ -32,7 +32,7 @@ class VegetableSerializer
         start_month: vs.start_month,
         end_month: vs.end_month,
         note: vs.note,
-        in_season: vegetable.in_season?
+        in_season: vs.in_season?
       }
     end
   end
