@@ -13,9 +13,9 @@
 :scheduler:
   :schedule:
     import_market_data_job:
-      cron: "0 22 * * 3"
+      cron: "0 22 * * 2"
       class: ImportMarketDataJob
 
     export_prices_to_csv:
-      cron: "0 23 * * 3"
+      cron: "0 23 * * 2"
       class: ExportPricesToCsv
