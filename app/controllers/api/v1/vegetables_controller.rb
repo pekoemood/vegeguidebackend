@@ -41,4 +41,9 @@ class Api::V1::VegetablesController < ApplicationController
     vegetable = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type).find_by(id: params[:id])
     render json: VegetableSerializer.new(vegetable).serializable_hash
   end
+
+  def names
+    names = Vegetable.pluck(:name)
+    render json: { names: names }
+  end
 end

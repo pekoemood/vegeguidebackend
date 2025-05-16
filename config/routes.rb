@@ -19,7 +19,9 @@ Rails.application.routes.draw do
       resources :recipes, only: %i( index show destroy )
 
       resources :users, only: %i( create )
-      resources :vegetables, only: %i( index show )
+      resources :vegetables, only: %i( index show ) do
+        get :names, on: :collection
+      end
       get "/health", to: proc { [200, { "Content-Type" => "application/json" }, [{ status: "ok" }.to_json]]}
     end
   end
