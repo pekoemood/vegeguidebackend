@@ -46,4 +46,9 @@ class Api::V1::VegetablesController < ApplicationController
     names = Vegetable.pluck(:name)
     render json: { names: names }
   end
+
+  def summary
+    vegetables = Vegetable.select(:id, :name, :image_url)
+    render json: vegetables
+  end
 end
