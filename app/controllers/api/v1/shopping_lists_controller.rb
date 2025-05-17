@@ -72,7 +72,7 @@ class Api::V1::ShoppingListsController < ApplicationController
   private 
 
   def recipe_params
-    params.permit(:name, :instructions, :cooking_time, :difficulty, :servings, ingredients: [:name, :amount, :unit], step: [:step_number, :description])
+    params.permit(:name, :recipe_category, :instructions, :calorie, :cooking_method, :cooking_time, :difficulty, :servings, ingredients: [:name, :amount, :unit, :display_amount], step: [:step_number, :description])
   end
 
   def update_items_params
