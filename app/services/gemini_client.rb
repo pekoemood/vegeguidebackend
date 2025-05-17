@@ -1,44 +1,35 @@
 class GeminiClient 
   include HTTParty
-  base_uri "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+  base_uri "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 
-def initialize(vegetable='キャベツ', servings=2, recipe_category='主菜', difficulty='簡単', cooking_time_category='short')
+def initialize(params)
   @api_key = Rails.application.credentials.dig(:gemini, :api_key)
 
-  # 調理時間カテゴリーを具体的な指示に変換
-  cooking_time_prompt = case cooking_time_category
-  when 'short'
-    '15分以内の調理時間'
-  when 'medium'
-    '16分から30分以内の調理時間'
-  when 'long'
-    '30分以上の調理時間'
-  else
-    '15分以内の調理時間'
-  end
+  @cooking_time = params["cookingTime"]
+  @calorie = params["calorie"]
+  @category = params["category"]
+  @difficulty = params["difficulty"]
+  @servings = params["servings"]
+  @cooking_method = params["cookingMethod"]
+  @selected_vegetables = params["selectedVegetables"]
+
+  vegetable_names = @selected_vegetables.join(", ")
+  recipe_category = @category
 
   @text = <<~TEXT
-    #{vegetable}を使用したレシピを1つ、以下のJSON形式で出力してください。  
+    #{vegetable_names}を使用したレシピを1つ、以下のJSON形式で出力してください。  
     出力は日本語で、JSON以外の説明は含めないでください。  
     JSON構造は厳密に以下に従ってください。  
 
     制約条件：  
-    - "servings" は数値で、指定された#{servings}人分にしてください。  
-    - "category" は以下のレシピカテゴリ一覧から選び、必ず#{recipe_category}にしてください。  
-    - "difficulty" はユーザー指定の#{difficulty}を反映してください。  
-    - "cooking_time" はユーザーが選択した調理時間のカテゴリ「#{cooking_time_prompt}」に基づき、調理にかかる実際の時間（分）を数値（Number型）で出力してください。  
-    - "image_url" を必ず含めてください。仮のURLでも構いません。  
-    - 材料それぞれに、以下の材料カテゴリ一覧から1つの"category"を指定してください。   
-
-    レシピカテゴリ一覧（レシピ全体）：  
-    - 主菜  
-    - 副菜  
-    - スープ  
-    - サラダ  
-    - ご飯もの  
-    - 麺類  
-    - おやつ  
+    - "servings" は数値で、指定された#{@servings}人分にしてください。調理量や材料の分量もそれに合わせて調整してください。  
+    - "category" はユーザー指定の#{recipe_category}にしてください。料理のジャンルや特徴に合う内容にしてください。  
+    - "calorie" は目安として#{@calorie} kcalを参考にし、実際の材料の種類や分量をもとにレシピ全体のカロリーを見積もって記載してください。指定の数値そのものを出力しないでください。  
+    - "difficulty" はユーザー指定の#{@difficulty}を反映してください。調理手順の複雑さや技術レベルが一致するようにしてください。  
+    - "cooking_method" はユーザー指定の#{@cooking_method}にしてください。調理方法に沿った手順や調理器具を使ってください。  
+    - "cooking_time" は「#{@cooking_time}」を参考にしつつ、実際の材料・手順に即した現実的な調理時間（分）を数値で出力してください。指定された数値そのものを出力しないでください。 
+    - 材料それぞれに、以下の材料カテゴリ一覧から1つの"category"を指定してください。     
 
     材料カテゴリ一覧（材料ごと）：  
     - 野菜  
@@ -56,12 +47,13 @@ def initialize(vegetable='キャベツ', servings=2, recipe_category='主菜', d
     ```json
     {
       "name": "レシピ名",
-      "category": "#{recipe_category}",
-      "image_url": "https://example.com/sample.jpg",
+      "recipe_category": "#{recipe_category}",
       "instructions": "レシピの簡単な説明",
-      "cooking_time": "#{cooking_time_prompt}",
-      "difficulty": "#{difficulty}",
-      "servings": #{servings},
+      "calorie": #{@calorie},
+      "cooking_method": "#{@cooking_method}",
+      "cooking_time": #{@cooking_time},
+      "difficulty": "#{@difficulty}",
+      "servings": #{@servings},
       "step": [
         {
           "step_number": 1,
