@@ -24,11 +24,11 @@ class ShoppingListCreator
   def create_recipe
     recipe = @current_user.recipes.find_or_create_by(@recipe_data.except(:ingredients, :step))
     @recipe_data[:ingredients].each do |ingredient|
-      recipe.ingredients.create(ingredient)
+      recipe.ingredients.create!(ingredient)
     end
 
     @recipe_data[:step].each do |step|
-      recipe.recipe_steps.create(step)
+      recipe.recipe_steps.create!(step)
     end
     return recipe
   end
