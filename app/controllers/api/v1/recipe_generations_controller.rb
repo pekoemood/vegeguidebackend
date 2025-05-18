@@ -2,7 +2,7 @@ class Api::V1::RecipeGenerationsController < ApplicationController
   before_action :authenticate_user!
   
   def create
-    api_response = GeminiClient.new(request_params).generate_recipe
+    api_response = GeminiNewClient.new(request_params).generate_recipe
     render json: api_response
   end
 
