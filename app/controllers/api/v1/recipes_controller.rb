@@ -11,6 +11,18 @@ class Api::V1::RecipesController < ApplicationController
     render json: RecipeSerializer.new(user_recipe).serializable_hash.to_json
   end
 
+  def create
+    begin 
+      RecipeCreator.new(@current_user, recipe_params).call
+      render json: { status: 'success', message: 'レシピの登録に成功しました' }, status: :ok
+    rescue ActiveRecord::RecordInvalid => e
+      render json: { status: 'failed', message: e.record.errors.full_messages.join(", ") }, status: :unprocessable_entity
+    rescue => e
+      render json: { status: 'failed', message: '予期せぬエラーが発生しました' }, status: :internal_server_error
+    end
+  end
+
+
   def destroy
     user_recipe = @current_user.recipes.find_by(id: params[:id])
     if user_recipe
@@ -25,6 +37,6 @@ class Api::V1::RecipesController < ApplicationController
   private 
 
   def recipe_params
-    params.permit(:name, :instructions, :cooking_time, :difficulty, :servings, ingredients: [:name, :amount, :unit], step: [:step_number, :description])
+    params.except(:recipe).permit(:name, :calorie, :recipe_category, :cooking_method, :instructions, :cooking_time, :difficulty, :servings, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
   end
 end

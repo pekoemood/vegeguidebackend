@@ -9,6 +9,8 @@ class RecipeSerializer
         name: ingredient.name,
         amount: ingredient.amount,
         unit: ingredient.unit,
+        display_amount: ingredient.display_amount,
+        category: ingredient.category,
       }
     end
   end
