@@ -14,6 +14,8 @@ class ShoppingListSerializer
         name: item.ingredient.name,
         amount: item.ingredient.amount,
         unit: item.ingredient.unit,
+        display_amount: item.ingredient.display_amount,
+        category: item.ingredient.category,
         checked: item.checked
       }
     end

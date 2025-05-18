@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       resources :shopping_lists, only: %i( index show create update destroy ) do
         post :from_recipe, on: :collection
       end
-      resources :recipes, only: %i( index show destroy )
+      resources :recipes, only: %i( index show create destroy )
 
       resources :users, only: %i( create )
       resources :vegetables, only: %i( index show ) do
