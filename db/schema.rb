@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_17_111825) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_19_133621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ingredients", force: :cascade do |t|
-    t.bigint "recipe_id", null: false
+    t.bigint "recipe_id"
     t.string "name"
     t.string "amount"
     t.string "unit"
@@ -82,7 +82,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_17_111825) do
 
   create_table "shopping_list_items", force: :cascade do |t|
     t.bigint "shopping_list_id", null: false
-    t.bigint "recipe_id", null: false
+    t.bigint "recipe_id"
     t.bigint "ingredient_id", null: false
     t.boolean "checked", default: false
     t.datetime "created_at", null: false
@@ -132,13 +132,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_17_111825) do
     t.index ["name"], name: "index_vegetables_on_name", unique: true
   end
 
-  add_foreign_key "ingredients", "recipes"
   add_foreign_key "prices", "vegetables"
   add_foreign_key "recipe_steps", "recipes"
   add_foreign_key "recipes", "users"
   add_foreign_key "seasons", "vegetables"
   add_foreign_key "shopping_list_items", "ingredients"
-  add_foreign_key "shopping_list_items", "recipes"
   add_foreign_key "shopping_list_items", "shopping_lists"
   add_foreign_key "shopping_lists", "users"
   add_foreign_key "vegetable_nutritions", "nutrition_types"
