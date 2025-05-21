@@ -18,4 +18,4 @@
 
     export_prices_to_csv:
       cron: "0 23 * * 2"
-      class: ExportPricesToCsv
+      class: ExportPricesToCsvJob
