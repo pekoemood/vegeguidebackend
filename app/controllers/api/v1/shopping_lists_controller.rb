@@ -69,6 +69,8 @@ class Api::V1::ShoppingListsController < ApplicationController
     render json: { message: '買い物リストの作成に失敗しました', error: e.message }, status: :unprocessable_entity
   end
 
+  
+
   private 
 
   def recipe_params
