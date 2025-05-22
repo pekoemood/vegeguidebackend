@@ -12,12 +12,11 @@ class ShoppingListSerializer
       {
         id: item.ingredient.id,
         name: item.ingredient.name,
-        amount: item.ingredient.amount,
-        unit: item.ingredient.unit,
         display_amount: item.ingredient.display_amount,
         category: item.ingredient.category,
-        checked: item.checked,
-        fromRecipe: item.recipe.name,
+        checked: item&.checked,
+        fromRecipe: item.recipe&.name,
+        item_id: item.id 
       }
     end
   end
