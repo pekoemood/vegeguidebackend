@@ -15,7 +15,9 @@ Rails.application.routes.draw do
       get "show_request", to: "authentication#show_request"
       resources :shopping_lists, only: %i( index show create update destroy ) do
         post :from_recipe, on: :collection
-        resources :shopping_list_items, shallow: true
+        resources :shopping_list_items, shallow: true do
+          patch :batch_update, on: :collection
+        end
       end
 
       resources :recipes, only: %i( index show create destroy )

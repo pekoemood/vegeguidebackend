@@ -22,22 +22,6 @@ class Api::V1::ShoppingListsController < ApplicationController
     end
   end
 
-  def update
-    ActiveRecord::Base.transaction do
-      shopping_list_items = @current_user.shopping_lists.find_by(id: params[:id]).shopping_list_items
-      update_items = update_items_params.index_by {|item| item["id"]}
-  
-      shopping_list_items.each do |item|
-        if update_items[item.ingredient_id]
-          checked_value = update_items[item.ingredient_id]["checked"]
-          item.update!(checked: checked_value)
-        end
-      end
-    end
-    render json: {success: "更新に成功しました"}, status: :ok
-  rescue => e
-    render json: { error: "エラーが発生しました: #{e.message}" }, status: :internal_server_error
-  end
 
   def destroy
     shopping_list = @current_user.shopping_lists.find_by(id: params[:id])
