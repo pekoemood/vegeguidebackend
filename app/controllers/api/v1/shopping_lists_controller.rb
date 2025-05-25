@@ -12,14 +12,19 @@ class Api::V1::ShoppingListsController < ApplicationController
   end
   
   def create
-    recipe_data = recipe_params
-    result = ShoppingListCreator.new(@current_user, recipe_data).call
-
-    if result[:success]
-      render json: {success: true }, status: :created
-    else
-      render json: {success: false, error: result[:error]}, status: :unprocessable_entity
+    name = params[:name]
+    if name.blank?
+      return render json: { status: 'failed', message: 'リストの名前がありません' }, status: :unprocessable_entity
     end
+
+    new_list = @current_user.shopping_lists.new(name: name)
+
+    if new_list.save
+      render json: ShoppingListSerializer.new(new_list).serializable_hash, status: :created
+    else
+      render json: { status: 'failed', message: new_list.errors.full_messages.join(', ') }, status: :unprocessable_entity
+    end
+    
   end
 
 
