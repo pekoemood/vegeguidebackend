@@ -30,6 +30,10 @@ class RecipeSerializer
       {
         id: list.id,
         name: list.name,
+        updated: list.updated_days_ago,
+        items_count: list.shopping_list_items.count,
+        checked_count: list.shopping_list_items.where(checked: true).count,
+        already_added: list.shopping_list_items.exists?(recipe_id: recipe.id)
       }
     end
   end
