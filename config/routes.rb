@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       end
 
       resources :recipes, only: %i( index show create destroy )
+      resources :fridge_items, only: %i( index create update destroy )
 
       resources :users, only: %i( create )
       resources :vegetables, only: %i( index show ) do
