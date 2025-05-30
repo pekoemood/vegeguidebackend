@@ -5,9 +5,9 @@ class Api::V1::FridgeItemsController < ApplicationController
   end
 
   def create
-    item = fridge_items_params
+    items = fridge_items_params
 
-    if item.blank?
+    if items.blank?
       return render json: { status: 'failed', message: 'リクエストデータに不備があります' }, status: :unprocessable_entity
     end
 
@@ -23,16 +23,19 @@ class Api::V1::FridgeItemsController < ApplicationController
       'その他' => 4 
     }
 
-    
-    days = category_expire_days[item[:category]] || 3
-    expire_date = Date.today + days
-    create_fridge_item = @current_user.fridge_items.create(name: item[:name], category: item[:category], expire_date: expire_date)
-
-    if create_fridge_item.persisted?
-      render json: { status: 'success', message: '材料の保存に成功しました' }, status: :created
-    else
-      render json: { status: 'failed', message: '材料の保存に失敗しました', errors: create_fridge_item.errors.full_messages }, status: :unprocessable_entity
+    ActiveRecord::Base.transaction do
+      items.each do |item|
+        days = category_expire_days[item[:category]] || 3
+        expire_date = Date.today + days
+        @current_user.fridge_items.create!(name: item[:name], category: item[:category], expire_date: expire_date, display_amount: item[:display_amount])
+      end
     end
+    fridge_items = @current_user.fridge_items
+    render json: FridgeItemSerializer.new(fridge_items).serializable_hash
+
+  rescue => e
+    render json: { status: 'failed', message: '材料の登録に失敗しました', error: e.message }, status: :unprocessable_entity
+    
   end
 
   def update
@@ -61,7 +64,10 @@ class Api::V1::FridgeItemsController < ApplicationController
   private
 
   def fridge_items_params
-    params.require(:fridge).permit(:name, :category)
+    fridge_array = params[:fridge]
+    fridge_array.map do |item|
+      item.permit(:name, :category, :display_amount, :expire_date)
+    end
   end
 
   def update_item_params
