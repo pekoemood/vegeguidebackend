@@ -16,7 +16,9 @@ class ShoppingListSerializer
         category: item.ingredient.category,
         checked: item&.checked,
         fromRecipe: item.recipe&.name,
-        item_id: item.id 
+        item_id: item.id,
+        amount: item.ingredient.amount,
+        unit: item.ingredient.unit,
       }
     end
   end
