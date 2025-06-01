@@ -25,9 +25,29 @@ class Api::V1::FridgeItemsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       items.each do |item|
-        days = category_expire_days[item[:category]] || 3
-        expire_date = Date.today + days
-        @current_user.fridge_items.create!(name: item[:name], category: item[:category], expire_date: expire_date, display_amount: item[:display_amount])
+        if item[:expire_date].blank?
+          days = category_expire_days[item[:category]] || 3
+          expire_date = Time.zone.today + days
+        end
+
+        if item[:category] == '調味料'
+          @current_user.fridge_items.find_or_create_by(name: item[:name], category: item[:category])
+        else
+          existing_item = @current_user.fridge_items.find_by(name: item[:name], category: item[:category])
+          if existing_item.present? && existing_item.unit == item[:unit]
+            before_amount = existing_item.amount.to_i
+            new_amount = item[:amount].to_i
+            total_amount = before_amount + new_amount
+            if total_amount <= 0
+              display_amount = nil
+            else
+              display_amount = "#{total_amount}#{existing_item.unit}"
+            end
+            existing_item.update!(display_amount: display_amount, amount: total_amount)
+          else
+            @current_user.fridge_items.create!(name: item[:name], category: item[:category], expire_date: expire_date || item[:expire_date], display_amount: item[:display_amount], amount: item[:amount], unit: item[:unit])
+          end
+        end
       end
     end
     fridge_items = @current_user.fridge_items
@@ -66,7 +86,7 @@ class Api::V1::FridgeItemsController < ApplicationController
   def fridge_items_params
     fridge_array = params[:fridge]
     fridge_array.map do |item|
-      item.permit(:name, :category, :display_amount, :expire_date)
+      item.permit(:name, :category, :display_amount, :expire_date, :amount, :unit)
     end
   end
 

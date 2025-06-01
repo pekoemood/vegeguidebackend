@@ -1,8 +1,10 @@
 class FridgeItem < ApplicationRecord
   belongs_to :user
+  validates :name, presence: true
+  validates :category, presence: true
 
   def expire_status
-    return 'expired' if expire_date.nil?
+    return 'unset' if expire_date.nil?
 
     today = Date.today
     limit_day = (expire_date - today).to_i
