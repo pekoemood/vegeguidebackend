@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_28_020133) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_02_072719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -120,7 +120,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_28_020133) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "google_uid"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["google_uid"], name: "index_users_on_google_uid"
   end
 
   create_table "vegetable_nutritions", force: :cascade do |t|
