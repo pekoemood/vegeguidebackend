@@ -22,7 +22,7 @@ gem "jsonapi-serializer"
 gem "httparty"
 gem "sidekiq"
 gem "redis"
-gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
+gem 'sidekiq-scheduler', '~> 6.0'
 gem 'jwt'
 gem 'googleauth', '~> 1.14'
 gem 'google-api-client', '~> 0.53.0'
