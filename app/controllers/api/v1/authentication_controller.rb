@@ -21,6 +21,7 @@ class Api::V1::AuthenticationController < ApplicationController
   end
 
   def logout
+    domain = Rails.env.production? ? 'vegeguidebackend.onrender.com' : nil
     cookies.delete(:jwt, domain: domain, path: '/')
     render json: { message: 'ログアウトしました' }, status: :ok
   end
