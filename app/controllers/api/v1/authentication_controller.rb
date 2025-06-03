@@ -4,12 +4,15 @@ class Api::V1::AuthenticationController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       token = TokenGenerator.encode(user.id)
+      domain = Rails.env.production? ? 'vegeguidebackend.onrender.com' : nil
       cookies[:jwt] = {
         value: token,
         expires: 24.hours.from_now,
         secure: Rails.env.production?,
         httponly: true,
-        same_site: :none
+        same_site: :none,
+        path: '/',
+        domain: domain
       }
       render json: { name: user.name }
     else
@@ -18,7 +21,8 @@ class Api::V1::AuthenticationController < ApplicationController
   end
 
   def logout
-    cookies.delete(:jwt)
+    domain = Rails.env.production? ? 'vegeguidebackend.onrender.com' : nil
+    cookies.delete(:jwt, domain: domain, path: '/')
     render json: { message: 'ログアウトしました' }, status: :ok
   end
 
