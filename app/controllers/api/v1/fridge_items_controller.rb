@@ -1,4 +1,6 @@
 class Api::V1::FridgeItemsController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     fridge_items = @current_user.fridge_items
     render json: FridgeItemSerializer.new(fridge_items).serializable_hash

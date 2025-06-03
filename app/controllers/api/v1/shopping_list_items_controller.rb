@@ -1,4 +1,6 @@
 class Api::V1::ShoppingListItemsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     shopping_list = @current_user.shopping_lists.find_by(id: params[:shopping_list_id])
 

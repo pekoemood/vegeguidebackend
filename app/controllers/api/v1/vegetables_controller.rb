@@ -1,4 +1,5 @@
 class Api::V1::VegetablesController < ApplicationController
+  before_action :authenticate_user!, only: [:summary]
   def index
 
     keyword = params[:keyword]
