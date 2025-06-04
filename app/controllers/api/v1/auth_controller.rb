@@ -52,7 +52,9 @@ class Api::V1::AuthController < ApplicationController
         expires: 24.hours.from_now,
         secure: Rails.env.production?,
         httponly: true,
-        same_site: :none
+        same_site: :none,
+        path: '/',
+        domain: Rails.env.production? ? 'vegeguidebackend.onrender.com' : nil
       }
 
       render json: { status: "ユーザーの登録に成功しました", name: user.name }
