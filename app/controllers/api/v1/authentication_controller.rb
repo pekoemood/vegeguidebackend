@@ -14,7 +14,7 @@ class Api::V1::AuthenticationController < ApplicationController
         path: '/',
         domain: domain
       }
-      render json: { name: user.name }
+      render json: { name: user.name, email: user.email }
     else
       render json: { status: "メールアドレスかパスワードが間違っています。" }, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class Api::V1::AuthenticationController < ApplicationController
 
   def check_login_status
     if @current_user
-      render json: { logged_in: true, name: @current_user.name }, status: :ok
+      render json: { logged_in: true, name: @current_user.name, email: @current_user.email }, status: :ok
     else
       render json: { logged_in: false, name: "" }, status: :unauthorized
     end

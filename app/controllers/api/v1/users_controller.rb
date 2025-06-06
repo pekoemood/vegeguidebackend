@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
         domain: domain
       }
 
-      render json: { status: "ユーザーの登録に成功しました", name: user.name }
+      render json: { status: "ユーザーの登録に成功しました", name: user.name, email: user.email }
     else
       render json: { error: user.errors.full_messages }, status: :unprocessable_entity
     end
