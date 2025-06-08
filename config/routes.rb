@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post "recipe_generations", to: "recipe_generations#create"
       post "login", to: "authentication#login"
       post "logout", to: 'authentication#logout'
+      resource :password, only: [:update]
       get 'check_login_status', to: 'authentication#check_login_status'
       get "show_request", to: "authentication#show_request"
       post 'auth/google_login', to: "auth#google_login"
