@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   
   require "sidekiq/web"
   require 'sidekiq-scheduler/web'
@@ -12,6 +13,9 @@ Rails.application.routes.draw do
       post "login", to: "authentication#login"
       post "logout", to: 'authentication#logout'
       resource :password, only: [:update]
+      resources :email_change_requests, only: [:create] do
+        get :confirm, on: :collection
+      end
       get 'check_login_status', to: 'authentication#check_login_status'
       get "show_request", to: "authentication#show_request"
       post 'auth/google_login', to: "auth#google_login"
