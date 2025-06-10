@@ -35,6 +35,6 @@ class Api::V1::EmailChangeRequestsController < ApplicationController
 
     request.destroy
 
-    render json: { message: 'メールアドレスを変更しました' }, status: :ok
+    render json: { message: 'メールアドレスを変更しました', email: user.email }, status: :ok
   end
 end
