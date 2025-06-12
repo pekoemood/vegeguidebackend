@@ -42,4 +42,4 @@ class Api::V1::RecipesController < ApplicationController
 end
 
 
-bundle install; bundle exec rails db:prepare RAILS_ENV=production; bundle exec rails db:seed RAILS_ENV=production;
+# bundle install; bundle exec rails db:prepare RAILS_ENV=production; bundle exec rails db:seed RAILS_ENV=production;
