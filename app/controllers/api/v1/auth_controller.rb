@@ -16,7 +16,7 @@ class Api::V1::AuthController < ApplicationController
         code: auth_code,
         client_id: Rails.application.credentials.google[:client_id],
         client_secret: Rails.application.credentials.google[:client_secret],
-        redirect_uri: Rails.application.credentials.frontend_origin,
+        redirect_uri: Rails.env.production? ? Rails.application.credentials.frontend_origin : 'https://localhost:5173',
         grant_type: "authorization_code"
         }
       )
