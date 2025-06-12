@@ -40,3 +40,6 @@ class Api::V1::RecipesController < ApplicationController
     params.except(:recipe).permit(:name, :calorie, :recipe_category, :cooking_method, :instructions, :cooking_time, :difficulty, :servings, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
   end
 end
+
+
+bundle install; bundle exec rails db:prepare RAILS_ENV=production; bundle exec rails db:seed RAILS_ENV=production;
