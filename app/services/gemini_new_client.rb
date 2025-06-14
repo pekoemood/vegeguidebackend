@@ -9,13 +9,24 @@ def initialize(params)
   @cooking_time = params["cookingTime"]
   @calorie = params["calorie"]
   @category = params["category"]
-  @difficulty = params["difficulty"]
+  @purpose = params["purpose"] || '指定なし'
   @servings = params["servings"]
   @cooking_method = params["cookingMethod"]
   @selected_vegetables = params["selectedVegetables"]
 
   vegetable_names = @selected_vegetables.join(", ")
   recipe_category = @category
+
+  calorie_instruction = ""
+  if @calorie == '400'
+    calorie_instruction = "400kcalを超えないように材料と分量を調整し、レシピを生成してください。"
+  elsif @calorie == '700'
+    calorie_instruction = "700kcalを超えないように材料と分量を調整し、レシピを生成してください。"
+  elsif @calorie == '9999'
+    calorie_instruction = "700kcal以上になるように材料と分量を調整し、高カロリーなレシピを生成してください。上限は特に指定しません。"
+  else
+    calorie_instruction = "レシピの合計カロリーを材料と分量から見積もって整数で出力してください。"
+  end
 
   @text = <<~TEXT
     #{vegetable_names}を使用したレシピを1つ日本語で出力してください。  
@@ -24,29 +35,25 @@ def initialize(params)
     - "servings" は数値で、指定された#{@servings}人分にしてください。調理量や材料の分量もそれに合わせて調整してください。
     - "instructions" は、出力したレシピの簡単な概要を説明する文章にしてください。
     - "category" はユーザー指定の#{recipe_category}にしてください。料理のジャンルや特徴に合う内容にしてください。  
-    - calorie は指定された#{@calorie}kcal以下になるよう、材料と分量から計算してください。計算は以下の例を参考にして行い、実際の材料の重さや量をもとに正確に見積もってください。指定値そのものをそのまま出力しないでください。
-      - 【カロリー計算例】
+    - "calorie" は、提供するレシピの合計カロリー（材料と分量から見積もられる値）を整数で出力してください。その際、#{calorie_instruction}
+      - 【カロリー算出の目安として以下を参考にしてください】
           豚バラ肉 100g = 約 364kcal
           白菜 100g = 約 13kcal
           砂糖 小さじ1（約3g）= 約 12kcal
           醤油 小さじ1（約5ml）= 約 5kcal
           みりん 小さじ1（約5ml）= 約 15kcal
           サラダ油 小さじ1（約5ml）= 約 45kcal
-      - 材料ごとに分量を基準にカロリーを算出すること。  
-      - 小数点以下も考慮し、適切に四捨五入してください。  
-      - 「servings」に応じて材料の分量を調整し、カロリーも比例して計算してください。  
-      - 出力するカロリーは、実際に計算した合計値を整数で示してください。  
-      - ただし、指定された#{@calorie}kcalを超えないように調整してください。  
-      - 指定のカロリー値そのものは出力せず、材料と分量に基づく実際の計算結果のみを記載してください。 
-    - "difficulty" はユーザー指定の#{@difficulty}を反映してください。調理手順の複雑さや技術レベルが一致するようにしてください。  
+      - 「servings」に応じて材料の分量を調整してください。
+    - "purpose" はユーザー指定の「#{@purpose}」を考慮し、その目的に合ったレシピを生成してください。 
     - "cooking_method" はユーザー指定の#{@cooking_method}にしてください。調理方法に沿った手順や調理器具を使ってください。  
     - "cooking_time" は「#{@cooking_time}」を参考にしつつ、実際の材料・手順に即した現実的な調理時間（分）を数値で出力してください。指定された数値そのものを出力しないでください。 
+    - "step" は、調理手順を具体的なステップ番号と、その説明を記述した"description"で構成される配列として出力してください。各ステップは順番に並べ、家庭で再現しやすいように簡潔かつ具体的に記述してください。
     - 材料の "amount" と "unit" は以下のルールに従ってください：
       - 数量が数値で "unit" が単位になるように出力してください（例：amount: 3, unit: "大さじ"）
       - 小数（例：0.25個）は分数に直して、自然な日本語表記にしてください（例：1/4個、1/2本 など）
       - unit に「少々」や「適量」が必要な場合は、"amount" を null にし、"unit": "少々" のようにしてください
       - 日本語として自然な表示用に "display_amount"（例："大さじ2", "1/2本", "少々"）も出力してください。
-    - 材料それぞれに、以下の材料カテゴリ一覧から1つの"category"を指定してください。     
+    - 材料はそれぞれに、以下の材料カテゴリ一覧から1つの"category"を指定してください。     
 
     材料カテゴリ一覧（材料ごと）：  
     - 野菜  
@@ -94,7 +101,7 @@ end
           "calorie": { "type": "INTEGER" },
           "cooking_method": { "type": "STRING" },
           "cooking_time": { "type": "INTEGER" },
-          "difficulty": { "type": "STRING" },
+          "purpose": { "type": "STRING" },
           "servings": { "type": "INTEGER" },
           "step": {
             "type": "ARRAY",
@@ -127,7 +134,7 @@ end
             }
           }
         },
-        "propertyOrdering": ["name", "recipe_category", "instructions", "calorie", "cooking_method", "cooking_time", "difficulty", "servings", "step", "ingredients"]
+        "propertyOrdering": ["name", "recipe_category", "instructions", "calorie", "cooking_method", "cooking_time", "purpose", "servings", "step", "ingredients"]
       }
     }
   }

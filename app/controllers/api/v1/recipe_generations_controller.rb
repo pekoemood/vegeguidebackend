@@ -9,6 +9,6 @@ class Api::V1::RecipeGenerationsController < ApplicationController
   private 
 
   def request_params
-    params.require(:recipe_generation).permit(:cookingTime, :calorie, :category, :difficulty, :servings, :cookingMethod, selectedVegetables: [])
+    params.require(:recipe_generation).permit(:cookingTime, :calorie, :category, :purpose, :servings, :cookingMethod, selectedVegetables: [])
   end
 end
