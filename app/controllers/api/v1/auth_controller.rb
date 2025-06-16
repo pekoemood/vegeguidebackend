@@ -57,7 +57,7 @@ class Api::V1::AuthController < ApplicationController
         domain: Rails.env.production? ? 'vegeguidebackend.onrender.com' : nil
       }
 
-      render json: { status: "ユーザーの登録に成功しました", name: user.name, email: user.email }
+      render json: { status: "ユーザーの登録に成功しました", name: user.name, email: user.email, google_account: !!user.google_uid }
       else
       Rails.logger.error("ユーザー保存エラー: #{user.errors.full_messages.join(', ')}")
       render json: { error: user.errors.full_messages }, status: :unprocessable_entity
