@@ -29,7 +29,7 @@ class Api::V1::AuthenticationController < ApplicationController
 
   def check_login_status
     if @current_user
-      render json: { logged_in: true, name: @current_user.name, email: @current_user.email, google_account: !!@current_user.google_uid }, status: :ok
+w      render json: { logged_in: true, name: @current_user.name, email: @current_user.email, google_account: !!@current_user.google_uid }, status: :ok
     else
       render json: { logged_in: false, name: "" }, status: :unauthorized
     end
