@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins Rails.env.production? ? 'https://vegeguidefrontend.vercel.app' : "https://localhost:5173"
+    origins Rails.env.production? ? 'https://vegeguide.com' : "https://localhost:5173"
 
     resource "/api/v1/*",
       headers: :any,
