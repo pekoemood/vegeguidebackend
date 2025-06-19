@@ -3,12 +3,12 @@ class Api::V1::RecipesController < ApplicationController
 
   def index
     user_recipe = @current_user.recipes
-    render json: RecipeSerializer.new(user_recipe).serializable_hash.to_json
+    render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user}).serializable_hash.to_json
   end
 
   def show
     user_recipe = @current_user.recipes.find_by(id: params[:id])
-    render json: RecipeSerializer.new(user_recipe).serializable_hash.to_json
+    render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user}).serializable_hash.to_json
   end
 
   def create

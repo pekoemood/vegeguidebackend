@@ -56,7 +56,7 @@ class Api::V1::ShoppingListsController < ApplicationController
       end
     end
 
-    render json: RecipeSerializer.new(recipe).serializable_hash, status: :created
+    render json: RecipeSerializer.new(recipe, params: { current_user: @current_user}).serializable_hash, status: :created
   rescue => e
     render json: { message: '買い物リストの作成に失敗しました', error: e.message }, status: :unprocessable_entity
   end

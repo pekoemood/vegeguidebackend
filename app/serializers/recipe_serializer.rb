@@ -24,8 +24,11 @@ class RecipeSerializer
     end
   end
 
-  attribute :shopping_lists do |recipe|
-    shopping_lists = ShoppingList.all
+  attribute :shopping_lists do |recipe, params|
+    current_user = params[:current_user]
+    next [] unless current_user
+
+    shopping_lists = current_user.shopping_lists
     shopping_lists.map do |list|
       {
         id: list.id,
