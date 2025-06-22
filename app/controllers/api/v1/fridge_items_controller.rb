@@ -56,19 +56,19 @@ class Api::V1::FridgeItemsController < ApplicationController
     render json: FridgeItemSerializer.new(fridge_items).serializable_hash
 
   rescue => e
-    render json: { status: 'failed', message: '材料の登録に失敗しました', error: e.message }, status: :unprocessable_entity
+    render json: { status: 'failed', message: '食材の登録に失敗しました', error: e.message }, status: :unprocessable_entity
     
   end
 
   def update
     fridge_item = @current_user.fridge_items.find_by(id: params[:id])
-    return render json: { status: 'failed', message: '材料が見つかりませんでした' }, status: :not_found if fridge_item.blank?
+    return render json: { status: 'failed', message: '食材が見つかりませんでした' }, status: :not_found if fridge_item.blank?
 
     if fridge_item.update(update_item_params)
       fridge_items = @current_user.fridge_items
       render json: FridgeItemSerializer.new(fridge_items).serializable_hash
     else
-      render json: { status: 'failed', message: '材料の更新に失敗しました', error: fridge_item.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: 'failed', message: '食材の更新に失敗しました', error: fridge_item.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -79,7 +79,7 @@ class Api::V1::FridgeItemsController < ApplicationController
       fridge_items = @current_user.fridge_items
       render json: FridgeItemSerializer.new(fridge_items).serializable_hash
     else
-      render json: { status: 'failed', message: '材料の削除に失敗しました' }, status: :unprocessable_entity
+      render json: { status: 'failed', message: '食材の削除に失敗しました' }, status: :unprocessable_entity
     end
   end
 
