@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
+  include Rails.application.routes.url_helpers
   before_action :set_current_user
 
   def set_current_user
