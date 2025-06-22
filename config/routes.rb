@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
 
       resources :recipes, only: %i( index show create destroy )
+      resources :recipe_image_generations, only: %i( create )
       resources :fridge_items, only: %i( index create update destroy )
 
       resources :users, only: %i( create )
