@@ -16,7 +16,7 @@ class Api::V1::RecipeImageGenerationsController < ApplicationController
     temp_image.image.attach(io: io, filename: 'generated.png', content_type: 'image/png')
     temp_image.save!
 
-    render json: { temp_image_id: temp_image.id, image_url: url_for(temp_image.image)}
+    render json: { temp_image_id: temp_image.id, image_url: rails_blob_url(temp_image.image, host:"localhost:3000")}
 
   end
 end
