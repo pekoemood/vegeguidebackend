@@ -2,7 +2,7 @@ class Api::V1::RecipeImageGenerationsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    gemini =GeminiImageClient.new(params.require(:recipe).permit(:name, step: [], ingredients: []))
+    gemini =GeminiImageClient.new(params.require(:recipe).permit(:name, step: [:step_number, :description], ingredients: [:name, :amount, :unit, :display_amount, :category]))
     base64_image = gemini.generate_recipe_image
 
     unless base64_image
