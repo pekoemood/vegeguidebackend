@@ -5,19 +5,17 @@ class GeminiImageClient
   def initialize(params = {})
     @api_key = Rails.application.credentials.dig(:gemini, :api_key)
 
-    @name = params["name"] || '野菜いため'
-    @step = params["step"] || ["野菜を切る", "野菜を炒める", "お皿に盛って完成"]
-    @ingredients = params["ingredients"] || ["キャベツ", "ピーマン", "豚肉"]
-    @style = "上からの自然光で撮影されたプロっぽい写真"
+    name = params["name"] || '野菜いため'
+    ingredients = params["ingredients"] || ["キャベツ", "ピーマン", "豚肉"]
+    main_ingredients = ingredients.select { |i| i["category"] != '調味料' }
+    ingredients_text = main_ingredients.map { |i| i["name"] }.join(", ")
 
     @text = <<~TEXT
-      #{@name}の料理画像を出力してください。
-
-      制約条件：
-      - 画像生成の際に次の調理手順を参考にしてください。#{@step}
-      - 画像には次の材料を全て含めてください。#{@ingredients}
-      - 生成する画像は#{@style}にしてください。
-
+Create a realistic, high-resolution food photograph of the dish #{name}, plated in a classic center-framing (日の丸構図) from a top-down or slight 45° angle.
+Serve it on a clean white plate with #{ingredients_text}, placed on a light wooden table with soft natural window light.
+The image should capture glossy sauce, gentle steam, vibrant color contrast, and natural shadows.
+Add a touch of everyday kitchen style by including a linen napkin and simple cutlery at the edge of the frame.
+Do not include any text, typography, labels, logos, or signage in the image.
     TEXT
   end
 
@@ -31,15 +29,22 @@ class GeminiImageClient
             { "text": @text }
           ]
         }],
-        "generationConfig": { "responseModalities": ["TEXT","IMAGE" ]}
+        "generationConfig": { 
+          "responseModalities": ["TEXT","IMAGE" ]}
         }.to_json
     }
 
     response = self.class.post("", options).parsed_response
-    image = response["candidates"][0]["content"]["parts"][1]["inlineData"]["data"]
     
-    Rails.logger.warn("GeminiImageClient: 画像データが取得できませんでした") unless image
+    parts = response.dig("candidates", 0, "content", "parts") || []
+    image_data = parts.find { |p| p["inlineData"] }&.dig("inlineData", "data")
+
+
+    Rails.logger.debug(@text)
     
-    image
+    
+    Rails.logger.warn("GeminiImageClient: 画像データが取得できませんでした") unless image_data
+    
+    image_data
   end
 end
