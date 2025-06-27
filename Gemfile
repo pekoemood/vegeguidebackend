@@ -26,6 +26,8 @@ gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
 gem 'jwt'
 gem 'googleauth', '~> 1.14'
 gem 'google-api-client', '~> 0.53.0'
+gem 'cloudinary'
+gem 'activestorage-cloudinary-service'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

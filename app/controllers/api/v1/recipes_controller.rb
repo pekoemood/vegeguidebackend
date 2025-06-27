@@ -2,7 +2,8 @@ class Api::V1::RecipesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user_recipe = @current_user.recipes
+    user_recipe = @current_user.recipes.includes(image_attachment: :blob)
+
     render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user}).serializable_hash.to_json
   end
 
@@ -14,6 +15,8 @@ class Api::V1::RecipesController < ApplicationController
   def create
     begin 
       RecipeCreator.new(@current_user, recipe_params).call
+
+
       render json: { status: 'success', message: 'レシピの登録に成功しました' }, status: :ok
     rescue ActiveRecord::RecordInvalid => e
       render json: { status: 'failed', message: e.record.errors.full_messages.join(", ") }, status: :unprocessable_entity
@@ -37,6 +40,6 @@ class Api::V1::RecipesController < ApplicationController
   private 
 
   def recipe_params
-    params.except(:recipe).permit(:name, :calorie, :recipe_category, :cooking_method, :instructions, :cooking_time, :purpose, :servings, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
+    params.except(:recipe).permit( :name, :calorie, :recipe_category, :cooking_method, :instructions, :cooking_time, :purpose, :servings, :temp_image_id, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
   end
 end
