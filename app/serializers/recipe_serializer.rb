@@ -1,7 +1,14 @@
 class RecipeSerializer
   include JSONAPI::Serializer
 
+
   attributes :id, :name, :instructions, :cooking_time, :servings, :purpose, :recipe_category
+
+  attribute :image_url do |recipe, params|
+    if recipe.image.attached?
+      Rails.application.routes.url_helpers.rails_blob_url(recipe.image)
+    end
+  end
 
   attribute :ingredients do |recipe|
     recipe.ingredients.map do |ingredient|
