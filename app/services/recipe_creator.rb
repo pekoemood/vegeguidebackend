@@ -20,7 +20,6 @@ class RecipeCreator
       if temp
         user_recipe.image.attach(temp.image.blob)
       end
-      
     end
   end
 end

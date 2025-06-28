@@ -4,5 +4,5 @@ class Recipe < ApplicationRecord
   has_many :recipe_steps, dependent: :destroy
   has_many :shopping_list_items, dependent: :destroy
   has_many :shopping_lists, through: :shopping_list_items
-  has_one_attached :image
+  has_one_attached :image, dependent: :purge
 end
