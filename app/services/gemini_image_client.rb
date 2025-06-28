@@ -11,7 +11,7 @@ class GeminiImageClient
     ingredients_text = main_ingredients.map { |i| i["name"] }.join(", ")
 
     @text = <<~TEXT
-      Create a highly realistic, high-resolution food photograph featuring the dish #{name}.
+      Create a highly realistic, high-resolution **square** food photograph featuring the dish #{name}.
       The plating should be classic **center-framed (日の丸構図)**, with the dish prominently positioned in the middle, shot from a **top-down or a slight 45-degree angle**.
 
       Serve the dish on a **clean, minimalist white plate** with **#{ingredients_text}**.
@@ -21,6 +21,7 @@ class GeminiImageClient
       To add an everyday kitchen aesthetic, include a **neatly folded linen napkin** and **simple, elegant cutlery** subtly placed at the very edge of the frame, hinting at a casual setting.
 
       **Exclude all text, typography, labels, logos, or signage from the image.**
+
     TEXT
   end
 
