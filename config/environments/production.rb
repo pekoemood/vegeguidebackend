@@ -106,7 +106,7 @@ Rails.application.configure do
   }
 
   Rails.application.routes.default_url_options = {
-    host: 'vegeguide.com',
+    host: 'vegeguidebackend.onrender.com',
     protocol: 'https'
   }
 
