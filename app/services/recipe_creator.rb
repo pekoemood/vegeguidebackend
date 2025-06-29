@@ -6,7 +6,7 @@ class RecipeCreator
 
   def call
     ActiveRecord::Base.transaction do
-      user_recipe = @current_user.recipes.create!(@recipe_data.except(:ingredients, :step, :temp_image_id))
+      user_recipe = @current_user.recipes.create!(@recipe_data.except(:ingredients, :step, :image_id))
       
       @recipe_data[:ingredients].each do |ingredient|
         user_recipe.ingredients.create!(ingredient)
@@ -16,10 +16,14 @@ class RecipeCreator
         user_recipe.recipe_steps.create!(step)
       end
 
-      temp = TempImage.find_by(id: @recipe_data[:temp_image_id])
-      if temp
-        user_recipe.image.attach(temp.image.blob)
+      if @recipe_data[:image_id].present?
+        blob = ActiveStorage::Blob.find_signed(@recipe_data[:image_id])
+        user_recipe.image.attach(blob)
       end
     end
+
+  rescue => e 
+    Rails.logger.error("レシピ作成中のエラー: #{e.message}")
+    raise
   end
 end

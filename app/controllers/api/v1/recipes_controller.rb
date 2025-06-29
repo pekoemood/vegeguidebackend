@@ -40,6 +40,6 @@ class Api::V1::RecipesController < ApplicationController
   private 
 
   def recipe_params
-    params.except(:recipe).permit( :name, :calorie, :recipe_category, :cooking_method, :instructions, :cooking_time, :purpose, :servings, :temp_image_id, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
+    params.except(:recipe).permit( :name, :calorie, :recipe_category, :cooking_method, :instructions, :cooking_time, :purpose, :servings, :image_id, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
   end
 end

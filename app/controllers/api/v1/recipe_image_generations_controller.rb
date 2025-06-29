@@ -16,10 +16,8 @@ class Api::V1::RecipeImageGenerationsController < ApplicationController
     file.write(decode)
     file.rewind
 
-    temp_image = TempImage.new
-    temp_image.image.attach(io: file, filename: 'generated.png', content_type: 'image/png')
-    temp_image.save!
+    blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: 'generated.png', content_type: 'image/png')
 
-    render json: { temp_image_id: temp_image.id, image_url: rails_blob_url(temp_image.image)}
+    render json: { image_id: blob.signed_id, image_url: rails_blob_url(blob)}
   end
 end
