@@ -9,8 +9,8 @@ end
 # 例：config/initializers/sidekiq.rb
 Sidekiq::Scheduler.dynamic = true
 
-schedule_file = "config/sidekiq_scheduler.yml"
+# schedule_file = "config/sidekiq_scheduler.yml"
 
-if File.exist?(schedule_file) && Sidekiq.server?
-  Sidekiq::Scheduler.load_schedule!
-end
+# if File.exist?(schedule_file) && Sidekiq.server?
+#   Sidekiq::Scheduler.load_schedule!
+# end

@@ -3,8 +3,6 @@
   - default
 
 :timeout: 25
-:logfile: ./log/sidekiq.log
-:pidfile: ./tmp/pids/sidekiq.pid
 
 :redis:
   url: redis://redis:6379/0
@@ -19,3 +17,7 @@
     export_prices_to_csv:
       cron: "0 23 * * 2"
       class: ExportPricesToCsvJob
+
+    purge_unattached_blob:
+      cron: "0 0 * * *"
+      class: PurgeUnattachedBlobJob
