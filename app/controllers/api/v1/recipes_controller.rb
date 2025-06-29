@@ -15,8 +15,6 @@ class Api::V1::RecipesController < ApplicationController
   def create
     begin 
       RecipeCreator.new(@current_user, recipe_params).call
-
-
       render json: { status: 'success', message: 'レシピの登録に成功しました' }, status: :ok
     rescue ActiveRecord::RecordInvalid => e
       render json: { status: 'failed', message: e.record.errors.full_messages.join(", ") }, status: :unprocessable_entity

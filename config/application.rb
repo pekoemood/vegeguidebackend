@@ -29,7 +29,7 @@ module App
     # Skip views, helpers and assets when generating a new resource.
     config.time_zone = 'Asia/Tokyo'
     config.api_only = true
-    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = Rails.env.production? ? :inline : :sidekiq
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Cookies
     # config.action_dispatch.cookies_same_site_protection = :none
