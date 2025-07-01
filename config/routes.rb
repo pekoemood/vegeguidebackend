@@ -2,10 +2,7 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-  
-  require "sidekiq/web"
-  require 'sidekiq-scheduler/web'
-  mount Sidekiq::Web => "/sidekiq" if Rails.env.development?
+  mount GoodJob::Engine, at: '/good_job'
 
   namespace :api do
     namespace :v1 do

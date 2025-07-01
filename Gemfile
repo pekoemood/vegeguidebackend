@@ -20,9 +20,7 @@ gem "bootsnap", require: false
 gem "rack-cors"
 gem "jsonapi-serializer"
 gem "httparty"
-gem "sidekiq"
-gem "redis"
-gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
+gem 'good_job'
 gem 'jwt'
 gem 'googleauth', '~> 1.14'
 gem 'google-api-client', '~> 0.53.0'
