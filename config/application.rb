@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require 'good_job/engine'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -29,9 +30,11 @@ module App
     # Skip views, helpers and assets when generating a new resource.
     config.time_zone = 'Asia/Tokyo'
     config.api_only = true
-    config.active_job.queue_adapter = Rails.env.production? ? :inline : :sidekiq
+    config.active_job.queue_adapter = :good_job
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Cookies
-    # config.action_dispatch.cookies_same_site_protection = :none
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Flash
+    
   end
 end
