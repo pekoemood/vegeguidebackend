@@ -88,4 +88,63 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '認証メソッド' do
+    let(:user) { create(:user, password: 'password123')}
+
+    describe '#authenticate' do
+      it '正しいパスワードで認証成功' do
+        expect(user.authenticate('password123')).to eq(user)
+      end
+
+      it '間違ったパスワードで認証失敗' do
+        expect(user.authenticate('misspassword')).to be false
+      end
+
+      it 'nilパスワードで認証失敗' do
+        expect(user.authenticate(nil)).to be false
+      end
+    end
+
+    describe 'password_digest' do
+      it 'パスワードが暗号化されて保存される' do
+        expect(user.password_digest).to be_present
+        expect(user.password_digest).not_to eq('password123')
+      end
+    end
+  end
+
+  describe 'Google認証' do
+    describe 'password_required?メソッド' do
+      context 'google_uidがない場合' do
+        let(:user) { build(:user, google_uid: nil) }
+
+        it '新規レコードでパスワードは必須' do
+          expect(user.send(:password_required?)).to be true
+        end
+
+        it '既存レコードでパスワード変更時は必須' do
+          user.save!
+          user.password = 'newpassword'
+          expect(user.send(:password_required?)).to be true
+        end
+      end
+
+      context 'google_uidがある場合' do
+        let(:google_user) { create(:google_user) }
+
+        it 'パスワード不要' do
+          expect(google_user.send(:password_required?)).to be false
+        end
+      end
+    end
+  end
+
+  describe 'エッジケース' do
+    it 'メールアドレス大文字小文字の扱い' do
+      create(:user, email: 'Test@Example.com')
+      user2 = build(:user, email: 'test@example.com')
+      expect(user2).to be_valid
+    end
+  end
 end

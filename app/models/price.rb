@@ -1,5 +1,6 @@
 class Price < ApplicationRecord
   belongs_to :vegetable
+  validates :price, :market, :date, presence: true
 
   scope :vegetable_ids_with_price_drop, -> {
     subquery = <<-SQL.squish

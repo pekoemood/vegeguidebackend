@@ -1,17 +1,61 @@
 {
   "RSpec": {
     "coverage": {
-      "/app/app/models/recipe.rb": {
+      "/app/app/models/price.rb": {
         "lines": [
           1,
           1,
           1,
-          1,
-          1,
-          1,
+          null,
           1,
           1,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          null,
+          null,
+          null,
+          1,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          2,
+          null,
+          1,
           1,
           null,
           1,
@@ -27,7 +71,7 @@
           null
         ]
       },
-      "/app/app/models/shopping_list.rb": {
+      "/app/app/models/vegetable.rb": {
         "lines": [
           1,
           1,
@@ -36,90 +80,44 @@
           1,
           null,
           1,
-          0,
-          0,
-          0,
           null,
           null
         ]
       },
-      "/app/app/models/user.rb": {
+      "/app/app/models/season.rb": {
         "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
           1,
           1,
           null,
           1,
           null,
-          1,
-          26,
-          null,
-          null
-        ]
-      },
-      "/app/app/models/ingredient.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "/app/app/models/recipe_step.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/app/app/models/shopping_list_item.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
           null,
           1,
           0,
-          null,
           0,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
           0,
           null,
           null,
           null
         ]
       },
-      "/app/app/models/fridge_item.rb": {
+      "/app/app/models/vegetable_nutrition.rb": {
         "lines": [
           1,
           1,
           1,
-          1,
           null,
           1,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          null,
+          1,
           null
         ]
       },
@@ -972,6 +970,42 @@
         ],
         "branches": {}
       },
+      "/app/app/models/fridge_item.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/app/app/models/ingredient.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
       "/app/app/models/nutrition_type.rb": {
         "lines": [
           0,
@@ -984,98 +1018,11 @@
         ],
         "branches": {}
       },
-      "/app/app/models/price.rb": {
+      "/app/app/models/recipe.rb": {
         "lines": [
           0,
           0,
-          null,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/app/app/models/season.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/app/app/models/vegetable.rb": {
-        "lines": [
           0,
           0,
           0,
@@ -1091,12 +1038,66 @@
         ],
         "branches": {}
       },
-      "/app/app/models/vegetable_nutrition.rb": {
+      "/app/app/models/recipe_step.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/app/app/models/shopping_list.rb": {
         "lines": [
           0,
           0,
           0,
+          0,
+          0,
           null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/app/app/models/shopping_list_item.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/app/app/models/user.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
           0,
           0,
           0
@@ -1784,6 +1785,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1751362727
+    "timestamp": 1751458614
   }
 }
