@@ -6,7 +6,4 @@ class Vegetable < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  def check_season
-    seasons.select(&:in_season?)
-  end
 end
