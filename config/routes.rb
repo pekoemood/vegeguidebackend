@@ -14,7 +14,6 @@ Rails.application.routes.draw do
         get :confirm, on: :collection
       end
       get 'check_login_status', to: 'authentication#check_login_status'
-      get "show_request", to: "authentication#show_request"
       post 'auth/google_login', to: "auth#google_login"
       resources :shopping_lists, only: %i( index show create update destroy ) do
         post :from_recipe, on: :collection

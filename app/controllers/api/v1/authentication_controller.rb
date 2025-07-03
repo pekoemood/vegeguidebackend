@@ -34,12 +34,4 @@ class Api::V1::AuthenticationController < ApplicationController
       render json: { logged_in: false, name: "" }, status: :unauthorized
     end
   end
-
-
-  def show_request
-    token = cookies[:jwt]
-    decode = TokenGenerator.decode(token)['token']
-    user = User.find_by(id: decode)
-    render json: { name: user.name, email: user.email }
-  end
 end
