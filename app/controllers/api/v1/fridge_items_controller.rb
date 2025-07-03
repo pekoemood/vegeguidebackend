@@ -86,7 +86,7 @@ class Api::V1::FridgeItemsController < ApplicationController
   private
 
   def fridge_items_params
-    fridge_array = params[:fridge]
+    fridge_array = params[:fridge] || []
     fridge_array.map do |item|
       item.permit(:name, :category, :display_amount, :expire_date, :amount, :unit)
     end
