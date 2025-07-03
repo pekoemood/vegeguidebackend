@@ -7,5 +7,9 @@ FactoryBot.define do
     expire_date { Date.today }
     display_amount { '150g' }
     association :user
+
+    trait :tomato do
+      name { 'トマト' }
+    end
   end
 end
