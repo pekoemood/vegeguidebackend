@@ -5,7 +5,7 @@ class Api::V1::ShoppingListItemsController < ApplicationController
     shopping_list = @current_user.shopping_lists.find_by(id: params[:shopping_list_id])
 
     if shopping_list.nil?
-      render json: { status: 'failed', message: '買い物リストが見つかりませんでした' }, status: :not_found
+      return render json: { status: 'failed', message: '買い物リストが見つかりませんでした' }, status: :not_found
     end
 
     ingredient = Ingredient.create!(new_item_params)

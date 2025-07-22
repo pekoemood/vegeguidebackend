@@ -2,12 +2,12 @@ class Api::V1::ShoppingListsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    current_user_shopping_list = @current_user.shopping_lists
+    current_user_shopping_list = @current_user.shopping_lists.includes(shopping_list_items: [:ingredient, :recipe])
     render json: ShoppingListSerializer.new(current_user_shopping_list).serializable_hash.to_json
   end
 
   def show
-    current_user_shopping_list = @current_user.shopping_lists.find_by(id: params[:id])
+    current_user_shopping_list = @current_user.shopping_lists.includes(shopping_list_items: [:ingredient, :recipe]).find_by(id: params[:id])
     render json: ShoppingListSerializer.new(current_user_shopping_list).serializable_hash.to_json
   end
   
@@ -42,7 +42,7 @@ class Api::V1::ShoppingListsController < ApplicationController
   end
 
   def from_recipe
-    recipe = @current_user.recipes.find_by(id: params[:recipe_id])
+    recipe = @current_user.recipes.includes(:ingredients).find_by(id: params[:recipe_id])
     return render json: { message: 'レシピが見つかりません' }, status: :not_found if recipe.blank?
 
     ActiveRecord::Base.transaction do
@@ -51,6 +51,7 @@ class Api::V1::ShoppingListsController < ApplicationController
       else
         shopping_list = @current_user.shopping_lists.create!(name: params[:name])
       end
+      
       recipe.ingredients.each do |ingredient|
         shopping_list.shopping_list_items.create!(recipe: recipe, ingredient: ingredient)
       end
