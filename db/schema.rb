@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_30_235042) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_23_124258) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -62,6 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_235042) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "display_amount"
+    t.index ["expire_date"], name: "index_fridge_items_on_expire_date"
     t.index ["user_id"], name: "index_fridge_items_on_user_id"
   end
 
@@ -182,6 +184,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_235042) do
     t.date "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["vegetable_id", "date"], name: "index_prices_on_vegetable_id_and_date_desc", order: { date: :desc }
     t.index ["vegetable_id", "market", "date"], name: "index_prices_on_vegetable_id_and_market_and_date", unique: true
     t.index ["vegetable_id"], name: "index_prices_on_vegetable_id"
   end
@@ -218,6 +221,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_235042) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "note"
+    t.index ["start_month", "end_month"], name: "index_seasons_on_start_month_and_end_month"
     t.index ["vegetable_id"], name: "index_seasons_on_vegetable_id"
   end
 
@@ -273,6 +277,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_235042) do
     t.datetime "updated_at", null: false
     t.string "image_url"
     t.index ["name"], name: "index_vegetables_on_name", unique: true
+    t.index ["name"], name: "index_vegetables_on_name_gin_trgm", opclass: :gin_trgm_ops, using: :gin
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

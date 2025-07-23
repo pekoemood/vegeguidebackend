@@ -35,7 +35,7 @@ class RecipeSerializer
     current_user = params[:current_user]
     next [] unless current_user
 
-    shopping_lists = current_user.shopping_lists
+    shopping_lists = params[:user_shopping_lists] || current_user.shopping_lists.includes(:shopping_list_items)
     shopping_lists.map do |list|
       {
         id: list.id,
