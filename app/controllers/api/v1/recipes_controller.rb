@@ -2,14 +2,14 @@ class Api::V1::RecipesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user_recipe = @current_user.recipes.includes(image_attachment: :blob)
+    user_recipe = @current_user.recipes.includes(:ingredients, :recipe_steps, image_attachment: :blob)
 
     render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user}).serializable_hash.to_json
   end
 
   def show
-    user_recipe = @current_user.recipes.find_by(id: params[:id])
-    render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user}).serializable_hash.to_json
+    user_recipe = @current_user.recipes.includes(:ingredients,:recipe_steps, image_attachment: :blob).find_by(id: params[:id])
+    render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user, user_shopping_lists: preload_shopping_lists}).serializable_hash.to_json
   end
 
   def create
@@ -40,4 +40,9 @@ class Api::V1::RecipesController < ApplicationController
   def recipe_params
     params.except(:recipe).permit( :name, :calorie, :recipe_category, :cooking_method, :instructions, :cooking_time, :purpose, :servings, :image_id, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
   end
+
+  def preload_shopping_lists
+    @current_user.shopping_lists.includes(:shopping_list_items)
+  end
+
 end
