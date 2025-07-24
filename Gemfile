@@ -26,6 +26,7 @@ gem 'googleauth', '~> 1.14'
 gem 'google-api-client', '~> 0.53.0'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
+gem 'redis'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
