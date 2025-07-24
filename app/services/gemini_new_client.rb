@@ -17,16 +17,9 @@ def initialize(params)
   vegetable_names = @selected_vegetables.join(", ")
   recipe_category = @category
 
-  calorie_instruction = ""
-  if @calorie == '400'
-    calorie_instruction = "400kcalを超えないように食材と分量を調整し、レシピを生成してください。"
-  elsif @calorie == '700'
-    calorie_instruction = "700kcalを超えないように食材と分量を調整し、レシピを生成してください。"
-  elsif @calorie == '9999'
-    calorie_instruction = "700kcal以上になるように食材と分量を調整し、高カロリーなレシピを生成してください。上限は特に指定しません。"
-  else
-    calorie_instruction = "レシピの合計カロリーを食材と分量から見積もって整数で出力してください。"
-  end
+  calorie_value = @calorie.to_i
+  total_calorie = calorie_value * @servings
+  calorie_instruction = "1人あたり#{calorie_value}kcal程度になるように食材と分量を調整し、レシピを生成してください。#{@servings}人分の合計では#{total_calorie}kcal程度になります。1人あたり±50kcal程度の範囲内で収まるようにしてください。"
 
   @text = <<~TEXT
     #{vegetable_names}を使用したレシピを1つ日本語で出力してください。
