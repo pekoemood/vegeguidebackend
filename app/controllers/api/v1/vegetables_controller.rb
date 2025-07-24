@@ -14,7 +14,9 @@ class Api::V1::VegetablesController < ApplicationController
     end
 
     if season == "true"
-      vegetables = vegetables.joins(:seasons).merge(Season.in_season)
+      # vegetables = vegetables.joins(:seasons).merge(Season.in_season)
+      seasonal_vegetable_ids = Season.in_season.pluck(:vegetable_id)
+      vegetables = vegetables.where(id: seasonal_vegetable_ids)
     end
 
     if discounted == "true"

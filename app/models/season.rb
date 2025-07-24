@@ -6,8 +6,8 @@ class Season < ApplicationRecord
 
   scope :in_season, -> {
     today_month = Date.today.month
-    where("start_month <= ? AND ? <= end_month OR start_month > end_month AND (? <= end_month OR ? >= start_month)",
-    today_month, today_month, today_month, today_month)
+    where("(start_month <= :month AND end_month >= :month) OR (start_month > end_month AND (:month <= end_month OR :month >= start_month))",
+    month: today_month)
   }
 
 
