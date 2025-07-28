@@ -3,7 +3,6 @@ class Api::V1::RecipesController < ApplicationController
 
   def index
     user_recipe = @current_user.recipes.includes(:ingredients, :recipe_steps, image_attachment: :blob)
-
     render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user}).serializable_hash.to_json
   end
 
