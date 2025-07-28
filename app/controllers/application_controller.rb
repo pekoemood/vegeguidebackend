@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
 
   def authenticate_user!
     if @current_user.nil?
-      render json: {status: 'ログインしてください' }, status: :unauthorized
+      render json: { status: 'ログインしてください' }, status: :unauthorized
       return
     end
   end
