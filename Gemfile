@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 7.2.2", ">= 7.2.2.1"
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.6"
 gem "puma", ">= 5.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
