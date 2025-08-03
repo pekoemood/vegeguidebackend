@@ -5,5 +5,6 @@ FactoryBot.define do
     unit { '個' }
     display_amount { '1個' }
     association :recipe
+    category { '野菜' }
   end
 end

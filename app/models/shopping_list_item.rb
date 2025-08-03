@@ -4,6 +4,9 @@ class ShoppingListItem < ApplicationRecord
   belongs_to :ingredient
   after_destroy :cleanup_ingredient
 
+  validates :shopping_list, presence: true
+  validates :ingredient, presence: true
+
   private
 
     def cleanup_ingredient

@@ -8,7 +8,8 @@ class Api::V1::ShoppingListItemsController < ApplicationController
       return render json: { status: 'failed', message: '買い物リストが見つかりませんでした' }, status: :not_found
     end
 
-    ingredient = Ingredient.create!(new_item_params)
+    ingredient = Ingredient.create(new_item_params)
+    return render json: { message: '材料の作成に失敗しました' }, status: :unprocessable_entity unless ingredient.persisted?
 
     item = shopping_list.shopping_list_items.new(
       ingredient: ingredient,
