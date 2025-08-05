@@ -132,6 +132,7 @@ RSpec.describe "Api::V1::ShoppingListItems", type: :request do
     let(:shopping_list) { create(:shopping_list, user: user) }
     let(:shopping_list_items) { create_list(:shopping_list_item, 5, shopping_list: shopping_list) }
     let(:updates) do { updates: shopping_list_items.map { |item| { id: item.id, checked: true}} } end
+    let(:invalid_updates) do { updates: shopping_list_items.map { |item| { id: 9999, checked: true} }} end
     context '正常系' do
       before do
         login user
@@ -145,6 +146,18 @@ RSpec.describe "Api::V1::ShoppingListItems", type: :request do
         shopping_list_items.each do |item|
           expect(item.reload.checked).to be true
         end
+      end
+    end
+
+    context '異常系' do
+      before do
+        login user
+      end
+      it 'idが無効の場合、アイテムの更新ができないこと' do
+        patch "/api/v1/shopping_lists/#{shopping_list.id}/shopping_list_items/batch_update", params: invalid_updates
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = JSON.parse(response.body)
+        expect(json['message']).to eq('一部または全ての更新に失敗しました')
       end
     end
   end
