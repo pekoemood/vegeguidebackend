@@ -12,7 +12,7 @@ class Api::V1::PasswordsController < ApplicationController
     if @current_user.update(password: new_password)
       render json: { status: 'success', message: 'パスワードの更新に成功しました'}, status: :ok
     else
-      render json: { status: 'failed', errors: @current_user.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: 'failed', errors: @current_user.errors }, status: :unprocessable_entity
     end
   end
 
