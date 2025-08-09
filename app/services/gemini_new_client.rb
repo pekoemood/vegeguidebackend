@@ -10,7 +10,7 @@ def initialize(params)
   @calorie = params["calorie"]
   @category = params["category"]
   @purpose = params["purpose"] || '指定なし'
-  @servings = params["servings"]
+  @servings = params["servings"].to_i
   @cooking_method = params["cookingMethod"]
   @selected_vegetables = params["selectedVegetables"]
 
