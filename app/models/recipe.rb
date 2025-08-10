@@ -7,9 +7,15 @@ class Recipe < ApplicationRecord
   has_one_attached :image
   before_destroy :purge_image
 
+  def image_url
+    image.attached? ? image.url : nil
+  end
+  
   private
 
   def purge_image
     image.purge_later if image.attached?
   end
+
+
 end

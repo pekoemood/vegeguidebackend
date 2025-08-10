@@ -5,9 +5,7 @@ class RecipeSerializer
   attributes :id, :name, :instructions, :cooking_time, :servings, :purpose, :recipe_category
 
   attribute :image_url do |recipe|
-    if recipe.image.attached?
-      Rails.application.routes.url_helpers.rails_blob_url(recipe.image)
-    end
+    recipe.image_url
   end
 
   attribute :ingredients do |recipe|

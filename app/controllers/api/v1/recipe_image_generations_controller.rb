@@ -18,6 +18,6 @@ class Api::V1::RecipeImageGenerationsController < ApplicationController
 
     blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: 'generated.png', content_type: 'image/png')
 
-    render json: { image_id: blob.signed_id, image_url: rails_blob_url(blob)}
+    render json: { image_id: blob.signed_id, image_url: blob.url }
   end
 end
