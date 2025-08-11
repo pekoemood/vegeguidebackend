@@ -2,7 +2,7 @@ class Api::V1::RecipeImageGenerationsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    gemini =GeminiImageClient.new(params.require(:recipe).permit(:name, ingredients: [:name, :amount, :unit, :display_amount, :category]))
+    gemini = GeminiImageClient.new(params.require(:recipe).permit(:name, ingredients: [:name, :amount, :unit, :display_amount, :category]))
     base64_image = gemini.generate_recipe_image
 
     unless base64_image
@@ -18,6 +18,6 @@ class Api::V1::RecipeImageGenerationsController < ApplicationController
 
     blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: 'generated.png', content_type: 'image/png')
 
-    render json: { image_id: blob.signed_id, image_url: blob.url }
+    render json: { image_id: blob.signed_id, image_url: blob.url }, status: :ok
   end
 end
