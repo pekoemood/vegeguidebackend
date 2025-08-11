@@ -44,10 +44,13 @@ end
 
 
 RSpec.configure do |config|
+  ActiveStorage::Current.url_options = { host: 'localhost:3000' }
+  Rails.application.routes.default_url_options = { host: 'localhost:3000' }
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
+
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
