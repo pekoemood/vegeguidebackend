@@ -39,4 +39,40 @@ RSpec.describe "Api::V1::Recipes", type: :request do
       expect(json['data']['attributes']['name']).to eq 'new_recipe'
     end
   end
+
+  describe 'POST /api/v1/recipes' do
+    let(:user) { create(:user) }
+    let(:recipe) { create(:recipe, user: user) }
+    let(:request) {  
+        { name: 'ナポリタン',
+          calorie: '500',
+          recipe_category: '主菜',
+          cooking_method: 'フライパン',
+          instructions: '美味しいナポリタン',
+          cooking_time: '30',
+          purpose: '普段使い',
+          servings: '2',
+          ingredients: [
+            name: 'スパゲッティ',
+            amount: '200',
+            unit: 'g',
+            display_amount: '200g',
+            category: '麺',
+          ],
+          step: [
+            step_number: '1',
+            description: 'スパゲッティを茹でる'
+          ]
+    }}
+    
+    before { login user }
+    context '正常系' do
+      it 'レシピ情報を送るとレスポンスが返ること' do
+        post "/api/v1/recipes", params: request
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['message']).to eq('レシピの登録に成功しました')
+      end
+    end
+  end
 end
