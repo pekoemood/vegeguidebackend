@@ -74,5 +74,29 @@ RSpec.describe "Api::V1::Recipes", type: :request do
         expect(json['message']).to eq('レシピの登録に成功しました')
       end
     end
+    context '異常系' do
+      it 'レシピ登録に失敗した場合にエラーレスポンスが返ること' do
+        service = instance_double(RecipeCreator)
+        allow(RecipeCreator).to receive(:new).and_return(service)
+        invalid_record = Recipe.new
+        invalid_record.errors.add(:name, "can't be blank")
+        allow(service).to receive(:call).and_raise(ActiveRecord::RecordInvalid.new(invalid_record))
+
+        post "/api/v1/recipes", params: request
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = JSON.parse(response.body)
+        expect(json['status']).to eq('failed')
+        expect(json['message']).to include("can't be blank")
+      end
+
+      it 'レシピ登録で予期せぬエラーが発生した場合はinternal_server_errorを返すこと' do
+        allow(RecipeCreator).to receive(:new).and_return(StandardError.new('class'))
+        post "/api/v1/recipes", params: request
+        expect(response).to have_http_status(:internal_server_error)
+        json = JSON.parse(response.body)
+        expect(json['status']).to eq('failed')
+        expect(json['message']).to eq('予期せぬエラーが発生しました')
+      end
+    end
   end
 end
