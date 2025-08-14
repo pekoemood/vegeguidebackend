@@ -101,15 +101,28 @@ RSpec.describe "Api::V1::Recipes", type: :request do
   end
 
   describe 'DELETE /api/v1/recipes/:id' do
-    let(:user) { create(:user) }
-    let(:recipe) { create(:recipe, user: user) }
+    let!(:user) { create(:user) }
+    let!(:recipe) { create(:recipe, user: user) }
     before { login user }
     context '正常系' do
-      it 'レシピが削除される' do
+      it 'レスポンスが正しく返ること' do
+        expect{
         delete "/api/v1/recipes/#{recipe.id}"
+      }.to change(Recipe, :count).by(-1)
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
         expect(json['message']).to eq('レシピの削除に成功しました')
+      end
+    end
+  
+    context '異常系' do
+      it 'idが間違っている場合はエラーを返すこと' do
+        expect {
+          delete "/api/v1/recipes/9999"
+        }.to_not change(Recipe, :count)
+        expect(response).to have_http_status(:not_found)
+        json = JSON.parse(response.body)
+        expect(json['message']).to eq('レシピが見つかりませんでした')
       end
     end
   end
