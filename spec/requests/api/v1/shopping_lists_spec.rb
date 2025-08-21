@@ -63,4 +63,19 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
       expect(response).to have_http_status(:not_found)
     end
   end
+
+  describe 'POST/api/v1/shopping_lists/from_recipe' do
+    let!(:user) { create(:user) }
+    let!(:recipe) { create(:recipe, user: user) }
+    let!(:ingredient) { create(:ingredient) }
+    let!(:shopping_list) { create(:shopping_list, user: user) }
+    let!(:shopping_list_item) { create(:shopping_list_item, recipe: recipe, ingredient: ingredient) }
+    context '正常系' do
+      before { login user }
+      it 'レシピが正しく登録される' do
+        post "/api/v1/shopping_lists/from_recipe", params: { recipe_id: recipe.id, shopping_list_id: shopping_list.id, name: 'test' }
+        expect(response).to have_http_status(:created)
+      end
+    end
+  end
 end
