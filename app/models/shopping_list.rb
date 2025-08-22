@@ -4,6 +4,8 @@ class ShoppingList < ApplicationRecord
   has_many :recipes, through: :shopping_list_items
   has_many :ingredients, through: :shopping_list_items
 
+  validates :name, presence: true
+
   def updated_days_ago
     latest_update = shopping_list_items.maximum(:created_at)
     return nil if latest_update.nil?
