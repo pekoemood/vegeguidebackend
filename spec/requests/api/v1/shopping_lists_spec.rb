@@ -3,64 +3,61 @@ require 'rails_helper'
 RSpec.describe "Api::V1::ShoppingLists", type: :request do
   describe "GET /api/v1/shopping_lists" do
     it "ショッピングリスト一覧を取得できる" do
-      user = create(:user)
+      user = create(:user) # userを作成
       create(:shopping_list, user: user)
-      login user
+      login user # ログイン
 
       get api_v1_shopping_lists_path
       expect(response).to have_http_status(200)
     end
   end
 
-  describe 'GET/api/v1/shopping_Lists/:id' do
+  describe 'GET /api/v1/shopping_Lists/:id' do
     it '指定のショッピングリストを取得できる' do
-      user = create(:user)
+      user = create(:user) # userを作成
       list = create(:shopping_list, user: user)
-      login user
+      login user # ログイン
 
       get api_v1_shopping_list_path(list)
       expect(response).to have_http_status(:ok)
     end
   end
 
-  describe 'POST/api/v1/shopping_lists' do
+  describe 'POST /api/v1/shopping_lists' do
+    let!(:user) { create(:user) }
+    before { login user }
+
     context '正常系' do
       it 'リクエストしたショッピングリストを作成できる' do
-        user = create(:user)
         params = { name: 'テスト' }
-        login user
-  
-        puts params.inspect
-  
+
         post api_v1_shopping_lists_path, params: params
         expect(response).to have_http_status(:created)
       end
     end
 
     context '異常系' do
-      it 'リクエストデータに不備がある場合' do
-        user = create(:user)
+      it 'リクエストデータに不備がある場合、unprocessable_entityが返る' do
         params = { name: nil }
-        login user
-  
+
         post api_v1_shopping_lists_path, params: params
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it '作成したリストがInvalidの場合' do
-        user = create(:user)
-        recipe = create(:recipe, name: nil)
-        login user
+      it '作成したリストがInvalidの場合、unprocessable_entityが返る' do
+        # shopping_list = ShoppingList.new(name: nil)
+        # user.shopping_lists.build(name: nil)
 
         invalid_list = build(:shopping_list, name: nil)
 
         allow_any_instance_of(User).to receive_message_chain(:shopping_lists, :new).and_return(invalid_list)
         
-
         post "/api/v1/shopping_lists", params: { name: 'test' }
         expect(response).to have_http_status(:unprocessable_entity)
+
         json = JSON(response.body)
         expect(json['status']).to eq('failed')
+        # expect(shopping_list).to be_invalid
       end
     end
     
@@ -68,7 +65,7 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
 
   end
 
-  describe 'DELETE/api/v1/shopping_lists' do
+  describe 'DELETE /api/v1/shopping_lists/:id' do
     it 'リクエストするとショッピングリストを削除できる' do
       user = create(:user)
       list = create(:shopping_list, user: user)
@@ -95,10 +92,14 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
     let!(:shopping_list_item) { create(:shopping_list_item, recipe: recipe, ingredient: ingredient) }
     context '正常系' do
       before { login user }
-      it 'レシピが正しく登録される' do
+      it 'レシピからショッピングリストが作成される' do
         post "/api/v1/shopping_lists/from_recipe", params: { recipe_id: recipe.id, shopping_list_id: shopping_list.id, name: 'test' }
         expect(response).to have_http_status(:created)
+        json = JSON.parse(response.body)
+        expect(json['name']).to eq('test')
+
+        
       end
     end
   end
-end
+end 
