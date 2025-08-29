@@ -23,4 +23,18 @@ class ApplicationController < ActionController::API
       return
     end
   end
+
+  protected
+
+  def jwt_cookie_options(token)
+    {
+      value: token,
+      expires: 24.hours.from_now,
+      secure: Rails.env.production?,
+      httponly: true,
+      same_site: :none,
+      path: '/',
+      domain: Rails.env.production? ? 'vegeguidebackend.onrender.com' : nil
+    }
+  end
 end

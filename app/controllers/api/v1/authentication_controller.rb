@@ -4,16 +4,7 @@ class Api::V1::AuthenticationController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       token = TokenGenerator.encode(user.id)
-      domain = Rails.env.production? ? 'vegeguidebackend.onrender.com' : nil
-      cookies[:jwt] = {
-        value: token,
-        expires: 24.hours.from_now,
-        secure: Rails.env.production?,
-        httponly: true,
-        same_site: :none,
-        path: '/',
-        domain: domain
-      }
+      cookies[:jwt] = jwt_cookie_options(token)
       render json: { name: user.name, email: user.email }
     else
       render json: { status: "メールアドレスかパスワードが間違っています。" }, status: :unprocessable_entity
