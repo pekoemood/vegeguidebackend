@@ -24,7 +24,6 @@ class Api::V1::ShoppingListsController < ApplicationController
     else
       render json: { status: 'failed', message: new_list.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
-    
   end
 
 
@@ -66,13 +65,13 @@ class Api::V1::ShoppingListsController < ApplicationController
 
   private 
 
-  def recipe_params
-    params.permit(:name, :recipe_category, :instructions, :calorie, :cooking_method, :cooking_time, :purpose, :servings, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
-  end
+  # def recipe_params
+  #   params.permit(:name, :recipe_category, :instructions, :calorie, :cooking_method, :cooking_time, :purpose, :servings, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
+  # end
 
-  def update_items_params
-    params.require(:items).map do |item|
-      item.permit(:id, :checked)
-    end
-  end
+  # def update_items_params
+  #   params.require(:items).map do |item|
+  #     item.permit(:id, :checked)
+  #   end
+  # end
 end
