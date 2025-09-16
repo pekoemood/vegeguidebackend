@@ -1,6 +1,7 @@
+require 'csv'
+
 class ExportPricesToCsvJob < ApplicationJob
   queue_as :default
-  require 'csv'
 
   def perform
     prices = Price.all

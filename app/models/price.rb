@@ -4,7 +4,8 @@ class Price < ApplicationRecord
 
   scope :vegetable_ids_with_price_drop, -> {
     Rails.cache.fetch("price_drop_vegetable_ids", expires_in: 1.hour) do
-      subquery = <<-SQL.squish
+      #相関サブクエリでp1（p2).vegetable_idが一つずつサブクエリに渡される
+      subquery = <<~SQL.squish
         SELECT DISTINCT p1.vegetable_id
         FROM prices p1
         INNER JOIN prices p2 ON p1.vegetable_id = p2.vegetable_id

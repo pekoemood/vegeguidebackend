@@ -1,6 +1,6 @@
+require 'jwt'
+
 class TokenGenerator
-  require 'jwt'
-  
   SECRET_KEY = Rails.application.credentials.dig(:jwt, :key)
 
   def self.encode(data)

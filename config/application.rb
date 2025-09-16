@@ -1,5 +1,4 @@
 require_relative "boot"
-
 require "rails/all"
 require 'good_job/engine'
 
