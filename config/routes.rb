@@ -1,11 +1,37 @@
 Rails.application.routes.draw do
-  resources :todos, only: %i( index )
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount GoodJob::Engine, at: '/good_job'
 
-  # Defines the root path route ("/")
-  root "todos#index"
+  namespace :api do
+    namespace :v1 do
+      post "recipe_generations", to: "recipe_generations#create"
+      post "login", to: "authentication#login"
+      post "logout", to: 'authentication#logout'
+      resource :password, only: [:update]
+      resources :email_change_requests, only: [:create] do
+        get :confirm, on: :collection
+      end
+      get 'check_login_status', to: 'authentication#check_login_status'
+      post 'auth/google_login', to: "auth#google_login"
+      resources :shopping_lists, only: %i( index show create update destroy ) do
+        post :from_recipe, on: :collection
+        resources :shopping_list_items, shallow: true do
+          patch :batch_update, on: :collection
+        end
+      end
+
+      resources :recipes, only: %i( index show create destroy )
+      resources :recipe_image_generations, only: %i( create )
+      resources :fridge_items, only: %i( index create update destroy )
+
+      resources :users, only: %i( create )
+      resources :vegetables, only: %i( index show ) do
+        get :names, on: :collection
+        get :summary, on: :collection
+      end
+      get "/health", to: proc { [200, { "Content-Type" => "application/json" }, [{ status: "ok" }.to_json]]}
+    end
+  end
 end
