@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
   include Rails.application.routes.url_helpers
-  before_action :set_current_user
+  include ActionController::RequestForgeryProtection
+  protect_from_forgery with: :exception
+  before_action :set_current_user, :set_csrf_token
 
   def set_current_user
     token = cookies[:jwt]
@@ -23,6 +25,12 @@ class ApplicationController < ActionController::API
       return
     end
   end
+
+  def set_csrf_token
+    response.set_header('X-CSRF-Token', form_authenticity_token)
+  end
+
+
 
   protected
 
