@@ -31,7 +31,8 @@ module App
     config.api_only = true
     config.action_controller.forgery_protection_origin_check = false
     config.active_job.queue_adapter = :good_job
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore
+    # config.middleware.use ActionDispatch::Cookies
+    # config.middleware.use ActionDispatch::Session::CookieStore
+    # config.middleware.use config.session_store, config.session_options
   end
 end
