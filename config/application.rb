@@ -29,11 +29,9 @@ module App
     # Skip views, helpers and assets when generating a new resource.
     config.time_zone = 'Asia/Tokyo'
     config.api_only = true
+    config.action_controller.forgery_protection_origin_check = false
     config.active_job.queue_adapter = :good_job
-    config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use Rack::MethodOverride
-    config.middleware.use ActionDispatch::Flash
-    
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end

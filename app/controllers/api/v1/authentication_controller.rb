@@ -1,8 +1,8 @@
 class Api::V1::AuthenticationController < ApplicationController
 
   def login
-    user = User.find_by(email: params[:email])
-    if user&.authenticate(params[:password])
+    user = User.authenticate_by(email: params[:email], password: params[:password])
+    if user
       token = TokenGenerator.encode(user.id)
       cookies[:jwt] = jwt_cookie_options(token)
       render json: { name: user.name, email: user.email }
