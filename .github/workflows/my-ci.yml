@@ -1,0 +1,32 @@
+name: MY-CI
+on: 
+  pull_request: 
+  push:
+
+jobs:
+  brakeman-scan: #BrakemanでRailsアプリの脆弱性をチェック
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト（ソース取得）
+        uses: actions/checkout@v4
+
+      - name: Ruby環境のセットアップ&Gemインストール
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.2'
+          bundler-cache: true
+      
+      - name: Brakemanによるセキュリティ診断
+        run: bin/brakeman
+  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト（ソース取得）
+        uses: actions/checkout@v4
+
+      - name: Ruby環境のセットアップ&Gemインストール
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.2'
+          bundler-cache: true
