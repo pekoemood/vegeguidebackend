@@ -1,6 +1,5 @@
 name: MY-CI
 on: 
-  pull_request: 
   push:
 
 jobs:
@@ -45,8 +44,6 @@ jobs:
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
-        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-      
 
     steps:
       - name: パッケージのインストール
@@ -64,5 +61,5 @@ jobs:
       - name: Rspec実行
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/app_test
         run: bin/rails db:prepare && bundle exec rspec
