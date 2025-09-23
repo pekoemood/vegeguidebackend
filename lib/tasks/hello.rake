@@ -1,6 +1,6 @@
 namespace :hello do
-  desc 'こんにちはタスク'
+  desc "こんにちはタスク"
   task :world do
-    puts 'こんにちはタスクが実行できましたね'
+    puts "こんにちはタスクが実行できましたね"
   end
 end

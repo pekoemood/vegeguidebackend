@@ -25,7 +25,7 @@ RSpec.describe FridgeItem, type: :model do
 
   describe 'アソシエーション' do
     it { should belong_to(:user) }
-    
+
     it '関連付けができる' do
       user = create(:user)
       fridge_item = create(:fridge_item, user: user)

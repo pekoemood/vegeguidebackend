@@ -58,6 +58,5 @@ RSpec.describe "Api::V1::EmailChangeRequests", type: :request do
         expect(json['error']).to eq('リンクが無効または期限切れです')
       end
     end
-
   end
 end

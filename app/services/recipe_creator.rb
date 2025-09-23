@@ -7,7 +7,7 @@ class RecipeCreator
   def call
     ActiveRecord::Base.transaction do
       user_recipe = @current_user.recipes.create!(@recipe_data.except(:ingredients, :step, :image_id))
-      
+
       @recipe_data[:ingredients].each do |ingredient|
         user_recipe.ingredients.create!(ingredient)
       end
@@ -22,7 +22,7 @@ class RecipeCreator
       end
     end
 
-  rescue => e 
+  rescue => e
     Rails.logger.error("レシピ作成中のエラー: #{e.message}")
     raise
   end

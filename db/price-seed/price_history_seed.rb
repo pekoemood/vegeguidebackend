@@ -2,12 +2,12 @@ require 'csv'
 
 csv_file_path = Rails.root.join('db', 'price-seed', 'price_history.csv')
 
-    EXCLUDED_KEYS = %w(Date CityName CityCode 野菜総量 その他の野菜 輸入野菜計 その他の輸入野菜 その他の菜類 アスパラガス（うち輸入） ブロッコリー（うち輸入）
+    EXCLUDED_KEYS = %w[Date CityName CityCode 野菜総量 その他の野菜 輸入野菜計 その他の輸入野菜 その他の菜類 アスパラガス（うち輸入） ブロッコリー（うち輸入）
     かぼちゃ（うち輸入） さやえんどう（うち輸入） たまねぎ（うち輸入） にんにく（うち輸入） しょうが（うち輸入） 生しいたけ（うち輸入）
-    )
+    ]
 
 CSV.foreach(csv_file_path, headers: true, encoding: 'utf-8') do |row|
-  next if EXCLUDED_KEYS.include?(row['品目名']) || row['産地名'].present? 
+  next if EXCLUDED_KEYS.include?(row['品目名']) || row['産地名'].present?
 
   vegetable = Vegetable.find_by(name: row['品目名'].strip)
 

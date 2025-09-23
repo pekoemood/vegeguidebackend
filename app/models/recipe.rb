@@ -10,12 +10,10 @@ class Recipe < ApplicationRecord
   def image_url
     image.attached? ? image.url : nil
   end
-  
+
   private
 
   def purge_image
     image.purge_later if image.attached?
   end
-
-
 end

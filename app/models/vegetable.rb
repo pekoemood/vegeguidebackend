@@ -5,5 +5,4 @@ class Vegetable < ApplicationRecord
   has_many :nutrition_types, through: :vegetable_nutritions
 
   validates :name, presence: true, uniqueness: true
-
 end

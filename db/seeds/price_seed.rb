@@ -2,7 +2,7 @@ require 'csv'
 
 price_csv_path = Rails.root.join('db', 'backup', 'prices_backup.csv')
 
-#価格情報の登録
+# 価格情報の登録
 CSV.foreach(price_csv_path, headers: true, encoding: 'utf-8') do |row|
   vegetable_id = row['vegetable_id'].to_i
   date = row['date']
@@ -14,7 +14,7 @@ CSV.foreach(price_csv_path, headers: true, encoding: 'utf-8') do |row|
     puts "#{vegetable_id}が見つかりませんでした"
     next
   end
-  
+
   vegetable.prices.create!(
     price: row['price'].to_i,
     market: row['market'],

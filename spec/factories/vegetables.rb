@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :vegetable do
-    sequence(:name) { |n| "テスト野菜#{n}"}
+    sequence(:name) { |n| "テスト野菜#{n}" }
     description { 'おいしい野菜です' }
     origin { '全国各地' }
     storage { '冷蔵庫で保存' }

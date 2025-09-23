@@ -76,19 +76,17 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   Rails.application.routes.default_url_options = {
-    host: 'localhost',
+    host: "localhost",
     port: 3000,
-    protocol: 'https'
-  } 
+    protocol: "https"
+  }
 
   config.force_ssl = true
   config.ssl_options = {
     redirect: {
       status: 301,
-      host: 'localhost',
+      host: "localhost",
       port: 3000
     }
   }
 end
-
-

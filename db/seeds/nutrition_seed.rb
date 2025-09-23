@@ -37,7 +37,7 @@ CSV.foreach(nutrition_csv_path, headers: true, encoding: 'utf-8') do |row|
   if vegetable && nutrition
     VegetableNutrition.find_or_create_by!(
       vegetable: vegetable,
-      nutrition_type: nutrition 
+      nutrition_type: nutrition
     ) do |vn|
       vn.amount = row['amount'].to_f
     end

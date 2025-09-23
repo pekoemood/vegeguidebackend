@@ -37,7 +37,6 @@ RSpec.describe Price, type: :model do
       expect(price.vegetable).to eq(vegetable)
       expect { vegetable.destroy }.to change { Price.count }.by(-1)
     end
-
   end
 
   describe 'クラスメソッド' do
@@ -66,7 +65,7 @@ RSpec.describe Price, type: :model do
           create(:price, vegetable: vegetable, date: Date.today, price: 120)
         end
 
-        it'価格変動率を計算' do
+        it '価格変動率を計算' do
           change_rate = Price.compare_last_month(vegetable.id)
           expect(change_rate).to eq(20.0) # (120 - 100)/100*100 = 20%
         end
@@ -86,10 +85,10 @@ RSpec.describe Price, type: :model do
 
     describe '.monthly_average_for' do
       before do
-        #1月のデータ
+        # 1月のデータ
         create(:price, vegetable: vegetable, date: Date.new(2025, 1, 15), price: 100)
         create(:price, vegetable: vegetable, date: Date.new(2025, 1, 20), price: 200)
-        #2月のデータ
+        # 2月のデータ
         create(:price, vegetable: vegetable, date: Date.new(2025, 2, 15), price: 150)
       end
 
@@ -97,7 +96,7 @@ RSpec.describe Price, type: :model do
         average = Price.monthly_average_for(vegetable.id)
         expect(average.length).to eq(2)
 
-        #1月の平均は150 (100+200)/2
+        # 1月の平均は150 (100+200)/2
         january_ave = average.find { |a| a.month == '2025-1-1' }
         expect(january_ave.average_price.to_f).to eq(150.0)
       end
@@ -111,15 +110,15 @@ RSpec.describe Price, type: :model do
       let(:vegetable3) { create(:vegetable) }
 
       before do
-        #vegetable1: 価格下落(200 -> 150)
+        # vegetable1: 価格下落(200 -> 150)
         create(:price, vegetable: vegetable1, date: 2.days.ago, price: 200)
         create(:price, vegetable: vegetable1, date: Date.today, price: 150)
 
-        #vegetable1: 価格上昇(100 -> 120)
+        # vegetable1: 価格上昇(100 -> 120)
         create(:price, vegetable: vegetable2, date: 2.days.ago, price: 100)
         create(:price, vegetable: vegetable2, date: Date.today, price: 120)
 
-        #vegetable3: 価格データが１つのみ
+        # vegetable3: 価格データが１つのみ
         create(:price, vegetable: vegetable3, date: Date.today, price: 100)
       end
 

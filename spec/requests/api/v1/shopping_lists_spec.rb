@@ -51,7 +51,7 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
         invalid_list = build(:shopping_list, name: nil)
 
         allow_any_instance_of(User).to receive_message_chain(:shopping_lists, :new).and_return(invalid_list)
-        
+
         post "/api/v1/shopping_lists", params: { name: 'test' }
         expect(response).to have_http_status(:unprocessable_entity)
 
@@ -60,9 +60,6 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
         # expect(shopping_list).to be_invalid
       end
     end
-    
-
-
   end
 
   describe 'DELETE /api/v1/shopping_lists/:id' do
@@ -97,9 +94,7 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
         expect(response).to have_http_status(:created)
         json = JSON.parse(response.body)
         expect(json['name']).to eq('test')
-
-        
       end
     end
   end
-end 
+end
