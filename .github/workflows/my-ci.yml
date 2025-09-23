@@ -30,3 +30,39 @@ jobs:
         with:
           ruby-version: '3.4.2'
           bundler-cache: true
+      
+      - name: rubocopによるリンター
+        run: bin/rubocop -f github
+
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+      
+
+    steps:
+      - name: パッケージのインストール
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y postgresql-client curl
+
+      - name: リポジトリのチェックアウト（ソース取得）
+        uses: actions/checkout@v4
+
+      - name: Ruby環境のセットアップ&Gemインストール
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.2'
+          bundler-cache: true
+
+      - name: Rspec実行
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+        run: bin/rails db:prepare && bundle exec rspec

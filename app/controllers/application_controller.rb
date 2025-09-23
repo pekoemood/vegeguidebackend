@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
   include Rails.application.routes.url_helpers
   include ActionController::RequestForgeryProtection
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, unless: -> { Rails.env.test? }
   before_action :set_current_user, :set_csrf_token
 
   def set_current_user

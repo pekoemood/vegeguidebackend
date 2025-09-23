@@ -151,8 +151,6 @@
           1,
           4,
           null,
-          null,
-          null,
           null
         ]
       },
@@ -240,7 +238,7 @@
           1,
           null,
           1,
-          291,
+          287,
           null,
           null
         ]
@@ -254,7 +252,6 @@
           1,
           null,
           1,
-          null,
           null
         ]
       },
@@ -394,6 +391,7 @@
           1,
           1,
           1,
+          null,
           null
         ]
       },
@@ -418,7 +416,6 @@
       "/app/app/controllers/api/v1/authentication_controller.rb": {
         "lines": [
           1,
-          null,
           1,
           50,
           50,
@@ -453,6 +450,8 @@
           1,
           1,
           1,
+          108,
+          1,
           null,
           1,
           108,
@@ -471,7 +470,12 @@
           1,
           48,
           2,
-          2,
+          null,
+          null,
+          null,
+          1,
+          108,
+          null,
           null,
           null,
           null,
@@ -506,6 +510,7 @@
           1,
           48,
           48,
+          null,
           null
         ]
       },
@@ -573,7 +578,7 @@
           1,
           null,
           1,
-          null,
+          1,
           1,
           1,
           1,
@@ -721,7 +726,6 @@
           1,
           null,
           null,
-          null,
           1,
           2,
           2,
@@ -756,8 +760,6 @@
           null,
           1,
           2,
-          null,
-          null,
           null,
           null
         ]
@@ -820,6 +822,7 @@
           null,
           1,
           1,
+          null,
           null
         ]
       },
@@ -879,6 +882,7 @@
           0,
           null,
           0,
+          null,
           null
         ]
       },
@@ -955,7 +959,6 @@
           null,
           1,
           1,
-          null,
           null,
           null
         ]
@@ -1041,6 +1044,7 @@
           null,
           0,
           0,
+          null,
           null
         ]
       },
@@ -1143,6 +1147,7 @@
           2,
           10,
           null,
+          null,
           null
         ]
       },
@@ -1177,7 +1182,6 @@
           null,
           null,
           null,
-          null,
           1,
           2,
           2,
@@ -1197,33 +1201,19 @@
           null,
           1,
           1,
-          1,
-          null,
           0,
           null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          null,
           1,
           null,
-          0,
-          null,
-          null,
-          null,
-          null,
-          1,
           null,
           1,
           0,
           null,
           null,
-          1,
-          0,
-          0,
           null,
+          1,
+          null,
+          0,
           null,
           null
         ]
@@ -1286,6 +1276,7 @@
           null,
           1,
           2,
+          null,
           null
         ]
       },
@@ -1294,7 +1285,6 @@
           1,
           1,
           1,
-          null,
           2,
           2,
           2,
@@ -1436,6 +1426,7 @@
       "/app/app/jobs/export_prices_to_csv_job.rb": {
         "lines": [
           0,
+          null,
           0,
           0,
           null,
@@ -1643,6 +1634,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1757331794
+    "timestamp": 1758637374
   }
 }
