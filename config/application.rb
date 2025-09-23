@@ -1,6 +1,6 @@
 require_relative "boot"
 require "rails/all"
-require 'good_job/engine'
+require "good_job/engine"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -27,7 +27,7 @@ module App
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
-    config.time_zone = 'Asia/Tokyo'
+    config.time_zone = "Asia/Tokyo"
     config.api_only = true
     config.action_controller.forgery_protection_origin_check = false
     config.active_job.queue_adapter = :good_job

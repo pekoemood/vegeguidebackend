@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::FridgeItems", type: :request do
   let!(:user) { create(:user) }
-  
+
 
   before do
     login user
@@ -62,23 +62,22 @@ RSpec.describe "Api::V1::FridgeItems", type: :request do
 
     it '同じアイテムを保存した場合' do
       create(:fridge_item, user: user)
-      params =  { fridge: [attributes_for(:fridge_item)] }
+      params =  { fridge: [ attributes_for(:fridge_item) ] }
 
       post api_v1_fridge_items_path, params: params
       expect(response).to have_http_status(:ok)
-
     end
 
     it 'amountが0以下の場合' do
       create(:fridge_item, user: user, amount: 0)
-      params = { fridge: [ attributes_for(:fridge_item, amount: 0)]}
+      params = { fridge: [ attributes_for(:fridge_item, amount: 0) ] }
 
       post api_v1_fridge_items_path, params: params
       expect(response).to have_http_status(:ok)
     end
 
     it 'リクエスト情報が不十分な場合' do
-      params = { fridge: [ attributes_for(:fridge_item, name: nil)]}
+      params = { fridge: [ attributes_for(:fridge_item, name: nil) ] }
       post api_v1_fridge_items_path, params: params
       expect(response).to have_http_status(:unprocessable_entity)
     end
@@ -86,13 +85,13 @@ RSpec.describe "Api::V1::FridgeItems", type: :request do
 
   describe 'PATCH/api/v1/fridge_items/:id' do
     let!(:item) { create(:fridge_item, user: user) }
-    it '食材の名前が更新される' do 
+    it '食材の名前が更新される' do
       params = {
         fridge: {
           name: "トマト",
           category: item.category,
           display_amount: item.display_amount,
-          expire_date: item.expire_date,
+          expire_date: item.expire_date
         }
       }
 
@@ -104,7 +103,6 @@ RSpec.describe "Api::V1::FridgeItems", type: :request do
       params = { fridge: attributes_for(:fridge_item, name: '') }
       patch api_v1_fridge_item_path(item), params: params
       expect(response).to have_http_status(:unprocessable_entity)
-
     end
   end
 

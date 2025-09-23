@@ -56,8 +56,7 @@ RSpec.describe User, type: :model do
 
   describe 'アソシエーション' do
     context 'レシピモデルの場合' do
-
-      it { should have_many(:recipes).dependent(:destroy)}
+      it { should have_many(:recipes).dependent(:destroy) }
       it '複数のレシピを持てる' do
         user = create(:user)
         recipe1 = create(:recipe, user: user)
@@ -73,7 +72,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'ショッピングリストの場合' do
-      it { should have_many(:shopping_lists).dependent(:destroy)}
+      it { should have_many(:shopping_lists).dependent(:destroy) }
       it '複数のショッピングリストを持てる' do
         user = create(:user)
         shopping_list1 = create(:shopping_list, user: user)
@@ -90,7 +89,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '認証メソッド' do
-    let(:user) { create(:user, password: 'password123')}
+    let(:user) { create(:user, password: 'password123') }
 
     describe '#authenticate' do
       it '正しいパスワードで認証成功' do

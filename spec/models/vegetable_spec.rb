@@ -58,19 +58,18 @@ RSpec.describe Vegetable, type: :model do
     let!(:vegetable) { create(:vegetable) }
     let!(:season) { create(:season, vegetable: vegetable) }
     it 'seasonを作成できる' do
-      expect(vegetable.seasons.count).to eq(1) 
+      expect(vegetable.seasons.count).to eq(1)
       expect(season.vegetable).to eq(vegetable)
     end
 
     it 'vegetable削除時にseasonsも削除される' do
       expect { vegetable.destroy }.to change { Season.count }.by(-1)
     end
-    
   end
 
   describe 'nutrition_types through関連' do
     let(:vegetable) { create(:vegetable) }
-    let(:nutrition_type) { create(:nutrition_type)}
+    let(:nutrition_type) { create(:nutrition_type) }
 
     it 'nutrition_typesを関連づけできる' do
       vegetable.vegetable_nutritions.create(

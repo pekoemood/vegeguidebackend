@@ -30,7 +30,7 @@ RSpec.describe "Api::V1::Recipes", type: :request do
   describe 'GET /api/recipes/:id' do
     let!(:user) { create(:user) }
     let!(:recipe) { create(:recipe, name: 'new_recipe', user: user) }
-    
+
     it '指定したレシピが返されること' do
       login user
       get api_v1_recipe_path(id: recipe.id)
@@ -43,7 +43,7 @@ RSpec.describe "Api::V1::Recipes", type: :request do
   describe 'POST /api/v1/recipes' do
     let(:user) { create(:user) }
     let(:recipe) { create(:recipe, user: user) }
-    let(:request) {  
+    let(:request) {
         { name: 'ナポリタン',
           calorie: '500',
           recipe_category: '主菜',
@@ -57,14 +57,14 @@ RSpec.describe "Api::V1::Recipes", type: :request do
             amount: '200',
             unit: 'g',
             display_amount: '200g',
-            category: '麺',
+            category: '麺'
           ],
           step: [
             step_number: '1',
             description: 'スパゲッティを茹でる'
           ]
     }}
-    
+
     before { login user }
     context '正常系' do
       it 'レシピ情報を送るとレスポンスが返ること' do
@@ -106,7 +106,7 @@ RSpec.describe "Api::V1::Recipes", type: :request do
     before { login user }
     context '正常系' do
       it 'レスポンスが正しく返ること' do
-        expect{
+        expect {
         delete "/api/v1/recipes/#{recipe.id}"
       }.to change(Recipe, :count).by(-1)
         expect(response).to have_http_status(:ok)
@@ -114,7 +114,7 @@ RSpec.describe "Api::V1::Recipes", type: :request do
         expect(json['message']).to eq('レシピの削除に成功しました')
       end
     end
-  
+
     context '異常系' do
       it 'idが間違っている場合はエラーを返すこと' do
         expect {

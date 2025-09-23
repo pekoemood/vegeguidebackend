@@ -12,14 +12,14 @@ class ShoppingListCreator
         add_to_shopping_list(recipe)
         return { success: true }
       else
-        raise ActiveRecord::Rollback, 'レシピ作成に失敗しました'
+        raise ActiveRecord::Rollback, "レシピ作成に失敗しました"
       end
     end
-  rescue => e 
+  rescue => e
     { success: false, error: e.message }
   end
 
-  private 
+  private
 
   def create_recipe
     recipe = @current_user.recipes.find_or_create_by(@recipe_data.except(:ingredients, :step))
@@ -30,7 +30,7 @@ class ShoppingListCreator
     @recipe_data[:step].each do |step|
       recipe.recipe_steps.create!(step)
     end
-    return recipe
+    recipe
   end
 
   def add_to_shopping_list(recipe)

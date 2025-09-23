@@ -1,11 +1,10 @@
 class Api::V1::VegetablesController < ApplicationController
-  before_action :authenticate_user!, only: [:summary]
+  before_action :authenticate_user!, only: [ :summary ]
   def index
-
     keyword = params[:keyword]
     season = params[:season]
     discounted = params[:discounted]
-    
+
 
     vegetables = Vegetable.includes(:prices, :seasons, vegetable_nutritions: :nutrition_type)
 
@@ -28,12 +27,12 @@ class Api::V1::VegetablesController < ApplicationController
     total_count = vegetables.count
     total_pages = (total_count / page_size.to_f).ceil
     option = {
-      meta: { 
+      meta: {
         total_pages: total_pages,
-        current_page: page_number,
+        current_page: page_number
       }
     }
-    
+
     vegetables = vegetables.limit(page_size).offset(page_number * page_size)
 
     render json: VegetableSerializer.new(vegetables, option).serializable_hash

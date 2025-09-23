@@ -15,7 +15,7 @@ class RecipeSerializer
         amount: ingredient.amount,
         unit: ingredient.unit,
         display_amount: ingredient.display_amount,
-        category: ingredient.category,
+        category: ingredient.category
       }
     end
   end
@@ -24,7 +24,7 @@ class RecipeSerializer
     recipe.recipe_steps.map do |step|
       {
         step_number: step.step_number,
-        description: step.description,
+        description: step.description
       }
     end
   end

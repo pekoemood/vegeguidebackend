@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe EmailChangeRequest, type: :model do
   describe 'アソシエーション' do
-    it { should belong_to(:user)}
+    it { should belong_to(:user) }
 
     it '関連付けができる' do
       user = create(:user)

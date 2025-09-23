@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :recipe do
     sequence(:name) { |n| "レシピ#{n}" }
-    instructions { 'テストレシピです'}
+    instructions { 'テストレシピです' }
     cooking_time { 5 }
     servings { 2 }
     recipe_category { '主菜' }

@@ -3,7 +3,7 @@ class Api::V1::EmailChangeRequestsController < ApplicationController
 
   def create
     unless @current_user.authenticate(params[:password])
-      return render json: { message: 'パスワードが間違っています' }, status: :unprocessable_entity
+      return render json: { message: "パスワードが間違っています" }, status: :unprocessable_entity
     end
 
     new_email = params[:new_email]
@@ -20,14 +20,14 @@ class Api::V1::EmailChangeRequestsController < ApplicationController
 
     UserMailer.with(user: @current_user, new_email: new_email, token: token).email_change_confirm.deliver_now
 
-    render json: { message: '確認メールを送信しました' }, status: :ok
+    render json: { message: "確認メールを送信しました" }, status: :ok
   end
 
   def confirm
     request = EmailChangeRequest.find_by(token: params[:token])
 
     if request.nil? || request.expired?
-      return render json: { error: 'リンクが無効または期限切れです' }, status: :unprocessable_entity
+      return render json: { error: "リンクが無効または期限切れです" }, status: :unprocessable_entity
     end
 
     user = request.user
@@ -35,6 +35,6 @@ class Api::V1::EmailChangeRequestsController < ApplicationController
 
     request.destroy
 
-    render json: { message: 'メールアドレスを変更しました', email: user.email }, status: :ok
+    render json: { message: "メールアドレスを変更しました", email: user.email }, status: :ok
   end
 end

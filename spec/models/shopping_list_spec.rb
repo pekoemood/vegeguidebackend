@@ -33,7 +33,6 @@ RSpec.describe ShoppingList, type: :model do
       expect(list.shopping_list_items).to include(item1, item2)
       expect(list.shopping_list_items.count).to eq(2)
       expect { list.destroy }.to change { ShoppingListItem.count }.by(-2)
-
     end
 
     it 'recipeと関連付けができる' do

@@ -57,12 +57,12 @@ RSpec.describe "Api::V1::ShoppingListItems", type: :request do
       end
     end
   end
-  
+
   describe 'PATCH /api/v1/shopping_list_items/:id' do
     let(:user) { create(:user) }
     let(:shopping_list) { create(:shopping_list, user: user) }
     let(:ingredient) { create(:ingredient) }
-    let(:shopping_list_item) { create(:shopping_list_item, shopping_list: shopping_list, ingredient: ingredient )}
+    let(:shopping_list_item) { create(:shopping_list_item, shopping_list: shopping_list, ingredient: ingredient) }
     let(:checked_params) do { checked: true } end
     before do
       login user
@@ -118,7 +118,7 @@ RSpec.describe "Api::V1::ShoppingListItems", type: :request do
         invalid_id = 9999
         expect {
           delete "/api/v1/shopping_list_items/#{invalid_id}"
-        }.to_not change(ShoppingListItem, :count) 
+        }.to_not change(ShoppingListItem, :count)
         expect(response).to have_http_status(:not_found)
         json = JSON.parse(response.body)
         expect(json['status']).to eq('failed')
@@ -131,13 +131,13 @@ RSpec.describe "Api::V1::ShoppingListItems", type: :request do
     let(:user) { create(:user) }
     let(:shopping_list) { create(:shopping_list, user: user) }
     let(:shopping_list_items) { create_list(:shopping_list_item, 5, shopping_list: shopping_list) }
-    let(:updates) do { updates: shopping_list_items.map { |item| { id: item.id, checked: true}} } end
-    let(:invalid_updates) do { updates: shopping_list_items.map { |item| { id: 9999, checked: true} }} end
+    let(:updates) do { updates: shopping_list_items.map { |item| { id: item.id, checked: true } } } end
+    let(:invalid_updates) do { updates: shopping_list_items.map { |item| { id: 9999, checked: true } } } end
     context '正常系' do
       before do
         login user
       end
-  
+
       it 'アイテムの一括更新ができること' do
         patch "/api/v1/shopping_lists/#{shopping_list.id}/shopping_list_items/batch_update", params: updates
         expect(response).to have_http_status(:ok)

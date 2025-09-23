@@ -4,7 +4,7 @@ class Price < ApplicationRecord
 
   scope :vegetable_ids_with_price_drop, -> {
     Rails.cache.fetch("price_drop_vegetable_ids", expires_in: 1.hour) do
-      #相関サブクエリでp1（p2).vegetable_idが一つずつサブクエリに渡される
+      # 相関サブクエリでp1（p2).vegetable_idが一つずつサブクエリに渡される
       subquery = <<~SQL.squish
         SELECT DISTINCT p1.vegetable_id
         FROM prices p1
@@ -40,7 +40,7 @@ class Price < ApplicationRecord
   end
 
   def self.compare_last_month(vegetable_id)
-    prices = 
+    prices =
     where(vegetable_id: vegetable_id)
     .order(date: :desc)
     .limit(2)
@@ -50,7 +50,7 @@ class Price < ApplicationRecord
 
     latest_price = prices[0].price
     previous_price = prices[1].price
-    
+
     change_rate = ((latest_price - previous_price) / previous_price.to_f * 100).round(1)
     change_rate
   end

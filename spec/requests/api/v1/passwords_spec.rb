@@ -6,7 +6,7 @@ RSpec.describe "Api::V1::Passwords", type: :request do
     let(:params) do { old_password: 'password', new_password: 'newpassword' } end
     let(:invalid_params) do { old_password: 'mispass', new_password: 'new' } end
     let(:invalid_new_pass) do { old_password: 'password', new_password: 'new' } end
-    
+
     context '正常系' do
       before do
         login user
@@ -41,7 +41,6 @@ RSpec.describe "Api::V1::Passwords", type: :request do
         expect(json['status']).to eq('failed')
         expect(json['errors']['password']).to include('8文字以上で入力してください')
       end
-
     end
   end
 end

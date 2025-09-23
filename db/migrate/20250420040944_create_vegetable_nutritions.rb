@@ -7,7 +7,7 @@ class CreateVegetableNutritions < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    
-    add_index :vegetable_nutritions, [:vegetable_id, :nutrition_type_id], unique: true
+
+    add_index :vegetable_nutritions, [ :vegetable_id, :nutrition_type_id ], unique: true
   end
 end
