@@ -60,18 +60,4 @@ class Api::V1::ShoppingListsController < ApplicationController
   rescue => e
     render json: { message: "買い物リストの作成に失敗しました", error: e.message }, status: :unprocessable_entity
   end
-
-
-
-  private
-
-  # def recipe_params
-  #   params.permit(:name, :recipe_category, :instructions, :calorie, :cooking_method, :cooking_time, :purpose, :servings, ingredients: [:name, :amount, :unit, :display_amount, :category], step: [:step_number, :description])
-  # end
-
-  # def update_items_params
-  #   params.require(:items).map do |item|
-  #     item.permit(:id, :checked)
-  #   end
-  # end
 end
