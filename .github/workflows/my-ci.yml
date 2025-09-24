@@ -62,6 +62,6 @@ jobs:
       - name: RSpecによる自動テスト実行
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/app_test
+          DATABASE_URL: postgres://user:password@localhost:5432/app_test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bin/rails db:prepare && bundle exec rspec
