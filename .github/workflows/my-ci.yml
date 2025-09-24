@@ -1,9 +1,9 @@
-name: MY-CI
+name: Rails CI（セキュリティ・Lint・テスト自動化）
 on: 
   push:
 
 jobs:
-  brakeman-scan: #BrakemanでRailsアプリの脆弱性をチェック
+  brakeman-scan: 
     runs-on: ubuntu-latest
     steps:
       - name: リポジトリのチェックアウト（ソース取得）
@@ -40,8 +40,8 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -59,8 +59,9 @@ jobs:
           ruby-version: '3.4.2'
           bundler-cache: true
 
-      - name: Rspec実行
+      - name: RSpecによる自動テスト実行
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/app_test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bin/rails db:prepare && bundle exec rspec
