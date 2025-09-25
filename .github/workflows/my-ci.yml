@@ -65,4 +65,7 @@ jobs:
           POSTGRES_HOST: localhost
           DATABASE_URL: postgres://user:password@localhost:5432/app_test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: bin/rails db:prepare && bundle exec rspec
+        run: |
+          bin/rails db:create 
+          bi/rails db:schema:load
+          bundle exec rspec
