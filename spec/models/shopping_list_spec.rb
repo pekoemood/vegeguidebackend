@@ -57,7 +57,7 @@ RSpec.describe ShoppingList, type: :model do
   describe '#updated_days_ago' do
     it '更新が当日であれば今日がかえされる' do
       list = create(:shopping_list)
-      create(:shopping_list_item, shopping_list: list, created_at: Date.today)
+      create(:shopping_list_item, shopping_list: list, created_at: Time.zone.today)
       expect(list.updated_days_ago).to eq('今日')
     end
 
