@@ -6,7 +6,7 @@ class FridgeItem < ApplicationRecord
   def expire_status
     return "unset" if expire_date.nil?
 
-    today = Date.today
+    today = Time.zone.today
     limit_day = (expire_date - today).to_i
     case
     when limit_day < 0
