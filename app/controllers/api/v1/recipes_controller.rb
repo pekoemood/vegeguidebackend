@@ -2,7 +2,7 @@ class Api::V1::RecipesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user_recipe = @current_user.recipes.includes(:ingredients, :recipe_steps, image_attachment: :blob)
+    user_recipe = @current_user.recipes.includes(:ingredients, :recipe_steps, image_attachment: :blob).order(created_at: :desc)
     render json: RecipeSerializer.new(user_recipe, params: { current_user: @current_user }).serializable_hash.to_json
   end
 
