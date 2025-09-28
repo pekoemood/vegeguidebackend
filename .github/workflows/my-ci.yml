@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: リポジトリのチェックアウト（ソース取得）
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Ruby環境のセットアップ&Gemインストール
         uses: ruby/setup-ruby@v1
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: リポジトリのチェックアウト（ソース取得）
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Ruby環境のセットアップ&Gemインストール
         uses: ruby/setup-ruby@v1
@@ -59,7 +59,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y postgresql-client curl
 
       - name: リポジトリのチェックアウト（ソース取得）
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Ruby環境のセットアップ&Gemインストール
         uses: ruby/setup-ruby@v1
