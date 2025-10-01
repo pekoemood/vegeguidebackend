@@ -9,15 +9,15 @@ def initialize(params)
   @cooking_time = params["cookingTime"]
   @calorie = params["calorie"]
   @category = params["category"]
-  @purpose = params["purpose"] || "指定なし"
-  @servings = params["servings"].to_i
-  @cooking_method = params["cookingMethod"]
+  @purpose = params["purpose"].presence || "指定なし"
+  @servings = (params["servings"].presence || "1").to_i
+  @cooking_method = params["cookingMethod"].presence || "おまかせ"
   @selected_vegetables = params["selectedVegetables"]
 
   vegetable_names = @selected_vegetables.join(", ")
-  recipe_category = @category
+  recipe_category = @category || "主菜"
 
-  calorie_value = @calorie.to_i
+  calorie_value = (@calorie.presence || "600").to_i
   total_calorie = calorie_value * @servings
   calorie_instruction = "1人あたり#{calorie_value}kcal程度になるように食材と分量を調整し、レシピを生成してください。#{@servings}人分の合計では#{total_calorie}kcal程度になります。1人あたり±50kcal程度の範囲内で収まるようにしてください。"
 
