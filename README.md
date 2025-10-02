@@ -33,9 +33,9 @@
 ## 🎯 ターゲット層
 
 **メインターゲット**: 独身男性社会人（27歳〜34歳）  
-**ペルソナ**: 田中さん（30歳、IT企業勤務、都内一人暮らし）
+**ペルソナ**: 田中さん（30歳、都内一人暮らし）
 
-- 年収500万円程度、残業多め  
+- 年収350~450万円程度、残業多め  
 - 健康診断の数値が気になり始めた  
 - 料理経験は浅く、野菜の選び方がわからない  
 - 食費を抑えたいが、コンビニ弁当に頼りがち  
@@ -136,70 +136,26 @@
 | Render         | バックエンドホスティング     |
 | Vercel         | フロントエンドホスティング   |
 
-### 🐳 docker-compose.yml（開発用）構成
 
-```yml
-services:
-  backend:
-    container_name: backend
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.dev
-    command: bash -c "bundle exec rails db:prepare && rails s"
-    volumes:
-      - ./backend:/app
-      - bundle_data:/usr/local/bundle
-      - ./certs:/certs
-    ports:
-      - 3000:3000
-    environment:
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
-    depends_on:
-      - db
-    tty: true
-    stdin_open: true
-
-  db:
-    image: postgres
-    environment:
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
-    ports:
-      - 5432:5432
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  frontend:
-    container_name: frontend
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./frontend:/home/node/app
-      - ./certs:/home/node/app/certs
-    ports:
-      - 5173:5173
-
-volumes:
-  bundle_data:
-  postgres_data:
-  ```
 
 ### 🧰 開発ツール・テスト
 
-| ツール          | バージョン | 用途                      |
-|----------------|------------|---------------------------|
-| RuboCop        | -          | Ruby静的解析・コード整形   |
-| Biome          | 1.9.4      | JavaScript静的解析・整形   |
-| SimpleCov      | -          | テストカバレッジ測定      |
-| RSpec          | -          | Ruby単体テスト            |
-| Factory Bot    | -          | テストデータ生成          |
-| Shoulda Matchers| -         | RSpec追加マッチャー       |
-| Brakeman       | -          | セキュリティ脆弱性検査    |
-| Letter Opener  | -          | メール開発確認ツール      |
+| ツール / ライブラリ                  | バージョン | 用途                                   |
+|-------------------------------------|------------|----------------------------------------|
+| **RuboCop**                         | -          | Ruby静的解析・コード整形               |
+| **Biome (`@biomejs/biome`)**        | 1.9.4      | JavaScript/TypeScript静的解析・整形    |
+| **SimpleCov**                       | -          | Railsテストカバレッジ測定              |
+| **RSpec**                           | -          | Rails単体テスト                        |
+| **Factory Bot**                     | -          | テストデータ生成                       |
+| **Shoulda Matchers**                | -          | RSpec追加マッチャー                   |
+| **Brakeman**                        | -          | Railsセキュリティ脆弱性検査            |
+| **Letter Opener**                   | -          | メール開発確認ツール                   |
+| **Vitest (`vitest`)**               | 3.2.4      | フロントエンド単体テストランナー        |
+| **Testing Library (React)**         | 16.3.0     | Reactコンポーネントのテスト支援         |
+| **Jest-DOM (`@testing-library/jest-dom`)** | 6.8.0 | DOMアサーション拡張                    |
+| **User Event (`@testing-library/user-event`)** | 14.6.1 | ユーザー操作のシミュレーション          |
+| **jsdom**                           | 26.1.0     | Node.js 環境でブラウザDOMをエミュレート |
+| **TypeScript**                      | 5.8.3      | 型チェック（`npm run type-check`）      |
 
 
 ## 🎬 デモ・スクリーンショット
@@ -216,12 +172,6 @@ volumes:
 ## 🚧 今後の展開
 
 ### 🐣 短期目標（3ヶ月）
-
-#### 🛠️ 技術刷新
-- **TypeScriptへの移行** - フロントエンドコードの型安全性向上と保守性強化
-
-#### 🛡️ セキュリティ
-- **CI/CDパイプライン強化** - 自動テスト、デプロイメント最適化
 
 #### 📱 UI/UX改善・最適化
 - **レスポンシブデザインの完全対応** - モバイルファースト設計への移行
@@ -264,3 +214,8 @@ volumes:
 
 > ※ 本ER図は主要なドメインモデルを示しています。  
 >   ActiveStorageやGoodJobのテーブルは含まれていません。
+
+
+## 🗄️ インフラ図
+
+![インフラ図](../Doc/infra.png)
