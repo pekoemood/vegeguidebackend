@@ -59,8 +59,10 @@
 
 ### 🏷️ 1. トップページ（今日のおすすめ野菜をチェック）
 仕事帰りにアプリを開くと、旬で価格の安い野菜が一目でわかります。  
-
-[![野菜一覧画面](https://i.gyazo.com/7423b96518c8023e7fccf631d6b4a2c7.png)](./docs/vegelist.mp4)
+  <a href="https://gyazo.com/334931406521b038763611aeca9f2c9d">
+    <img src="https://i.gyazo.com/7423b96518c8023e7fccf631d6b4a2c7.png" width="600" alt="トップページのスクリーンショット">
+  </a><br>
+  <sub>🔗 クリックで動画を見る（Gyazoで再生）</sub>
 
 
 ---
