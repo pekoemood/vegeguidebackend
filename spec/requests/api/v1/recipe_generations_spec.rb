@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe "Api::V1::RecipeGenerations", type: :request do
   describe "POST /api/v1/recipe_generations" do
     let(:user) { create(:user) }
-    let(:request_data) { { recipe_generation: 
-                      { cookingTime: '5', 
-                        calorie: '600', 
-                        category: '野菜', 
-                        purpose: '指定なし', 
-                        servings: '2', 
-                        cookingMethod: 'フライパン', 
-                        selectedVegetables: ['だいこん', '人参'] }} }
+    let(:request_data) { { recipe_generation:
+                      { cookingTime: '5',
+                        calorie: '600',
+                        category: '野菜',
+                        purpose: '指定なし',
+                        servings: '2',
+                        cookingMethod: 'フライパン',
+                        selectedVegetables: [ 'だいこん', '人参' ] } } }
     let(:mock_response) {
       {
         "name" => "大根とにんじんの炒め物",

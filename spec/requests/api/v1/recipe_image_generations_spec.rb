@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe "Api::V1::RecipeImageGenerations", type: :request do
   describe "POST /api/v1/recipe_image_generations" do
     let(:user) { create(:user) }
-    let(:request) { {recipe: 
+    let(:request) { { recipe:
     { name: '野菜炒め',
-      ingredients: [{ name: 'キャベツ', amount: '200', unit: 'g', display_amount: '200g', category: '野菜' },
-                    { name: '豚肉', amount: '200', unit: 'g', display_amount: '200g', category: '肉類'},
-                    ]}} }
+      ingredients: [ { name: 'キャベツ', amount: '200', unit: 'g', display_amount: '200g', category: '野菜' },
+                    { name: '豚肉', amount: '200', unit: 'g', display_amount: '200g', category: '肉類' }
+                    ] } } }
     before { login user }
     context '正常系' do
       let(:mock_base64_image) { "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" }

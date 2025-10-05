@@ -1,0 +1,79 @@
+name: Rails CI（セキュリティ・Lint・テスト自動化）
+on: 
+  push:
+    branches: 
+      - main
+      - develop
+  pull_request: 
+    branches: 
+      - main
+      - develop
+  workflow_dispatch: 
+
+jobs:
+  brakeman-scan: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト（ソース取得）
+        uses: actions/checkout@v5
+
+      - name: Ruby環境のセットアップ&Gemインストール
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.2'
+          bundler-cache: true
+      
+      - name: Brakemanによるセキュリティ診断
+        run: bin/brakeman
+  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト（ソース取得）
+        uses: actions/checkout@v5
+
+      - name: Ruby環境のセットアップ&Gemインストール
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.2'
+          bundler-cache: true
+      
+      - name: rubocopによるリンター
+        run: bin/rubocop -f github
+
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: パッケージのインストール
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y postgresql-client curl
+
+      - name: リポジトリのチェックアウト（ソース取得）
+        uses: actions/checkout@v5
+
+      - name: Ruby環境のセットアップ&Gemインストール
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.2'
+          bundler-cache: true
+
+      - name: RSpecによる自動テスト実行
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          DATABASE_URL: postgres://user:password@localhost:5432/app_test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          bin/rails db:create 
+          bin/rails db:schema:load
+          bundle exec rspec

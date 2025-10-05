@@ -62,7 +62,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, {
-    url: ENV['REDIS_URL'],
+    url: ENV["REDIS_URL"],
     ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_PEER }
   }
 
@@ -103,14 +103,13 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.sendgrid.net",
     port: 587,
-    user_name: 'apikey',
+    user_name: "apikey",
     password: Rails.application.credentials.sendgrid[:api_key],
-    enable_starttls_auto: true,
+    enable_starttls_auto: true
   }
 
   Rails.application.routes.default_url_options = {
-    host: 'vegeguidebackend.onrender.com',
-    protocol: 'https'
+    host: "vegeguidebackend.onrender.com",
+    protocol: "https"
   }
-
 end

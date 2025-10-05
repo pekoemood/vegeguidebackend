@@ -1,6 +1,6 @@
 class Api::V1::FridgeItemsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     fridge_items = @current_user.fridge_items
     render json: FridgeItemSerializer.new(fridge_items).serializable_hash
@@ -10,19 +10,19 @@ class Api::V1::FridgeItemsController < ApplicationController
     items = fridge_items_params
 
     if items.blank?
-      return render json: { status: 'failed', message: 'リクエストデータに不備があります' }, status: :unprocessable_entity
+      return render json: { status: "failed", message: "リクエストデータに不備があります" }, status: :unprocessable_entity
     end
 
     category_expire_days = {
-      '野菜' => 5,
-      '肉類' => 3,  
-      '魚介類'  => 2,  
-      '卵・乳製品' => 7,  
-      '豆・豆製品' => 4,  
-      '穀類・パン' => 5,  
-      '調味料' => 30, 
-      '加工食品' => 6,  
-      'その他' => 4 
+      "野菜" => 5,
+      "肉類" => 3,
+      "魚介類"  => 2,
+      "卵・乳製品" => 7,
+      "豆・豆製品" => 4,
+      "穀類・パン" => 5,
+      "調味料" => 30,
+      "加工食品" => 6,
+      "その他" => 4
     }
 
     ActiveRecord::Base.transaction do
@@ -32,7 +32,7 @@ class Api::V1::FridgeItemsController < ApplicationController
           expire_date = Time.zone.today + days
         end
 
-        if item[:category] == '調味料'
+        if item[:category] == "調味料"
           @current_user.fridge_items.find_or_create_by(name: item[:name], category: item[:category])
         else
           existing_item = @current_user.fridge_items.find_by(name: item[:name], category: item[:category])
@@ -56,19 +56,18 @@ class Api::V1::FridgeItemsController < ApplicationController
     render json: FridgeItemSerializer.new(fridge_items).serializable_hash
 
   rescue => e
-    render json: { status: 'failed', message: '食材の登録に失敗しました', error: e.message }, status: :unprocessable_entity
-    
+    render json: { status: "failed", message: "食材の登録に失敗しました", error: e.message }, status: :unprocessable_entity
   end
 
   def update
     fridge_item = @current_user.fridge_items.find_by(id: params[:id])
-    return render json: { status: 'failed', message: '食材が見つかりませんでした' }, status: :not_found if fridge_item.blank?
+    return render json: { status: "failed", message: "食材が見つかりませんでした" }, status: :not_found if fridge_item.blank?
 
     if fridge_item.update(update_item_params)
       fridge_items = @current_user.fridge_items
       render json: FridgeItemSerializer.new(fridge_items).serializable_hash
     else
-      render json: { status: 'failed', message: '食材の更新に失敗しました', error: fridge_item.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: "failed", message: "食材の更新に失敗しました", error: fridge_item.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -79,7 +78,7 @@ class Api::V1::FridgeItemsController < ApplicationController
       fridge_items = @current_user.fridge_items
       render json: FridgeItemSerializer.new(fridge_items).serializable_hash
     else
-      render json: { status: 'failed', message: '食材の削除に失敗しました' }, status: :unprocessable_entity
+      render json: { status: "failed", message: "食材の削除に失敗しました" }, status: :unprocessable_entity
     end
   end
 
@@ -96,5 +95,3 @@ class Api::V1::FridgeItemsController < ApplicationController
     params.require(:fridge).permit(:name, :category, :display_amount, :expire_date)
   end
 end
-
-

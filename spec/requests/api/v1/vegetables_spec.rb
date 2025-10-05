@@ -39,7 +39,7 @@ RSpec.describe "Api::V1::Vegetables", type: :request do
         get "/api/v1/vegetables/names"
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
-        expect(json['names']).to eq(['だいこん'])
+        expect(json['names']).to eq([ 'だいこん' ])
       end
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe "Api::V1::Vegetables", type: :request do
     context '正常系' do
       before { login user }
       it '野菜のIDと名前と画像URLを取得できる' do
-        get "/api/v1/vegetables/summary" 
+        get "/api/v1/vegetables/summary"
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
         expect(json.first['id']).to eq(vegetable.id)

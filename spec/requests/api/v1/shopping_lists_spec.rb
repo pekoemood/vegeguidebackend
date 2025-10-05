@@ -51,7 +51,7 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
         invalid_list = build(:shopping_list, name: nil)
 
         allow_any_instance_of(User).to receive_message_chain(:shopping_lists, :new).and_return(invalid_list)
-        
+
         post "/api/v1/shopping_lists", params: { name: 'test' }
         expect(response).to have_http_status(:unprocessable_entity)
 
@@ -60,9 +60,6 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
         # expect(shopping_list).to be_invalid
       end
     end
-    
-
-
   end
 
   describe 'DELETE /api/v1/shopping_lists/:id' do
@@ -87,19 +84,14 @@ RSpec.describe "Api::V1::ShoppingLists", type: :request do
   describe 'POST/api/v1/shopping_lists/from_recipe' do
     let!(:user) { create(:user) }
     let!(:recipe) { create(:recipe, user: user) }
-    let!(:ingredient) { create(:ingredient) }
-    let!(:shopping_list) { create(:shopping_list, user: user) }
-    let!(:shopping_list_item) { create(:shopping_list_item, recipe: recipe, ingredient: ingredient) }
     context '正常系' do
       before { login user }
       it 'レシピからショッピングリストが作成される' do
-        post "/api/v1/shopping_lists/from_recipe", params: { recipe_id: recipe.id, shopping_list_id: shopping_list.id, name: 'test' }
+        post "/api/v1/shopping_lists/from_recipe", params: { recipe_id: recipe.id, name: 'test' }
         expect(response).to have_http_status(:created)
         json = JSON.parse(response.body)
-        expect(json['name']).to eq('test')
-
-        
+        expect(json['data']['attributes']['shopping_lists'][0]['name']).to eq('test')
       end
     end
   end
-end 
+end

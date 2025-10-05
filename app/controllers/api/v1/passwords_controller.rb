@@ -6,13 +6,13 @@ class Api::V1::PasswordsController < ApplicationController
     new_password = password_params[:new_password]
 
     unless @current_user.authenticate(old_password)
-      return render json: { status: 'failed', message: '現在のパスワードが正しくありません' }, status: :unprocessable_entity
+      return render json: { status: "failed", message: "現在のパスワードが正しくありません" }, status: :unprocessable_entity
     end
 
     if @current_user.update(password: new_password)
-      render json: { status: 'success', message: 'パスワードの更新に成功しました'}, status: :ok
+      render json: { status: "success", message: "パスワードの更新に成功しました" }, status: :ok
     else
-      render json: { status: 'failed', errors: @current_user.errors }, status: :unprocessable_entity
+      render json: { status: "failed", errors: @current_user.errors }, status: :unprocessable_entity
     end
   end
 

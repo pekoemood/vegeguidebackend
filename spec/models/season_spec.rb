@@ -56,7 +56,7 @@ RSpec.describe Season, type: :model do
   describe '#in_season?' do
     context '通常のシーズン（年を跨がない)' do
       let(:season) { build(:season, start_month: 4, end_month: 6) }
-      
+
 
       it '開始付きでは旬' do
         travel_to Date.new(2025, 4, 15) do
@@ -88,7 +88,7 @@ RSpec.describe Season, type: :model do
     end
 
     context '年末をまたぐシーズン' do
-      let(:season) { create(:season, start_month:11, end_month: 2) }
+      let(:season) { create(:season, start_month: 11, end_month: 2) }
 
       it '12月では旬' do
         travel_to Date.new(2024, 12, 15) do
@@ -112,7 +112,7 @@ RSpec.describe Season, type: :model do
         travel_to Date.new(2024, 10, 15) do
           expect(season.in_season?).to be false
         end
-        travel_to Date.new(2025,3, 15) do
+        travel_to Date.new(2025, 3, 15) do
           expect(season.in_season?).to be false
         end
       end
@@ -140,7 +140,6 @@ RSpec.describe Season, type: :model do
           expect(in_season_records).not_to include(spring_season, summer_season)
         end
       end
-
     end
   end
 end

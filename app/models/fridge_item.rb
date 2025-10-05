@@ -4,19 +4,19 @@ class FridgeItem < ApplicationRecord
   validates :category, presence: true
 
   def expire_status
-    return 'unset' if expire_date.nil?
+    return "unset" if expire_date.nil?
 
-    today = Date.today
+    today = Time.zone.today
     limit_day = (expire_date - today).to_i
     case
     when limit_day < 0
-      'expired'
+      "expired"
     when limit_day <= 2
-      'urgent'
+      "urgent"
     when limit_day <= 5
-      'warning'
+      "warning"
     else
-      'safe'
+      "safe"
     end
   end
 end

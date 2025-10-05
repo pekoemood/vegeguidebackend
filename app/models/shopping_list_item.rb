@@ -13,7 +13,7 @@ class ShoppingListItem < ApplicationRecord
       ingredient.reload
 
       recipe_exists = ingredient.recipe_id.present? && Recipe.exists?(ingredient.recipe_id)
-      
+
       if ingredient.shopping_list_items.empty? && !recipe_exists
         ingredient.destroy
       end

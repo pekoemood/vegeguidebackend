@@ -1,6 +1,6 @@
 require 'csv'
 
-vegetables_file_path = Rails.root.join('db', 'vegeguide.csv') 
+vegetables_file_path = Rails.root.join('db', 'vegeguide.csv')
 
 CSV.foreach(vegetables_file_path, headers: true, encoding: 'utf-8') do |row|
   vegetable = Vegetable.find_or_initialize_by(name: row['name'])
@@ -8,7 +8,7 @@ CSV.foreach(vegetables_file_path, headers: true, encoding: 'utf-8') do |row|
   vegetable.origin = row['origin']
   vegetable.storage = row['storage']
   vegetable.image_url = row['image_url'].presence
-  vegetable.save!  
+  vegetable.save!
 
   # 保存されたあとでSeasonを作成
   if row['start_month'].present? && row['end_month'].present?

@@ -36,10 +36,9 @@ pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 # config/puma.rb
 
 if ENV["RAILS_ENV"] == "development"
-  ssl_bind '0.0.0.0', '3000', {
+  ssl_bind "0.0.0.0", "3000", {
     key: "/certs/localhost-key.pem",
     cert: "/certs/localhost.pem",
     verify_mode: "none"
   }
 end
-

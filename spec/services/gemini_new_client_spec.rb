@@ -10,7 +10,7 @@ RSpec.describe GeminiNewClient do
         'purpose' => 'ダイエット',
         'servings' => '2',
         'cookingMethod' => 'フライパン',
-        'selectedVegetables' => ['にんじん', 'ピーマン']
+        'selectedVegetables' => [ 'にんじん', 'ピーマン' ]
       }
     end
 
@@ -36,4 +36,3 @@ RSpec.describe GeminiNewClient do
     end
   end
 end
-

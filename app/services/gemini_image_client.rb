@@ -5,9 +5,9 @@ class GeminiImageClient
   def initialize(params = {})
     @api_key = Rails.application.credentials.dig(:gemini, :api_key)
 
-    name = params["name"] || '野菜いため'
-    ingredients = params["ingredients"] || ["キャベツ", "ピーマン", "豚肉"]
-    main_ingredients = ingredients.select { |i| i["category"] != '調味料' }
+    name = params["name"] || "野菜いため"
+    ingredients = params["ingredients"] || [ "キャベツ", "ピーマン", "豚肉" ]
+    main_ingredients = ingredients.select { |i| i["category"] != "調味料" }
     ingredients_text = main_ingredients.map { |i| i["name"] }.join(", ")
 
     @text = <<~TEXT
@@ -28,29 +28,29 @@ class GeminiImageClient
   def generate_recipe_image
     options = {
       query: { key: @api_key },
-      headers: { 'Content-Type' => 'application/json' },
+      headers: { "Content-Type" => "application/json" },
       body: {
-        "contents": [{
+        "contents": [ {
           "parts": [
             { "text": @text }
           ]
-        }],
-        "generationConfig": { 
-          "responseModalities": ["TEXT","IMAGE" ]}
+        } ],
+        "generationConfig": {
+          "responseModalities": [ "TEXT", "IMAGE" ] }
         }.to_json
     }
 
     response = self.class.post("", options).parsed_response
-    
+
     parts = response.dig("candidates", 0, "content", "parts") || []
     image_data = parts.find { |p| p["inlineData"] }&.dig("inlineData", "data")
 
 
     Rails.logger.debug(@text)
-    
-    
+
+
     Rails.logger.warn("GeminiImageClient: 画像データが取得できませんでした") unless image_data
-    
+
     image_data
   end
 end
