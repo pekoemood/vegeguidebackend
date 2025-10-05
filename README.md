@@ -57,83 +57,35 @@
 
 ## 🧩 主要な機能
 
----
+| 🥦 **野菜一覧ページ** |
+| :--- |
+| <a href="https://gyazo.com/334931406521b038763611aeca9f2c9d" target="_blank"><img src="https://i.gyazo.com/7423b96518c8023e7fccf631d6b4a2c7.png" width="700" alt="野菜一覧ページ"></a> |
+|旬で安い野菜を一覧でチェックできます。今日のおすすめがひと目でわかります。 |
 
-### 🥕 野菜一覧ページ（今日のおすすめ野菜をチェック）
+| 🔍 **野菜詳細ページ** |
+| :--- |
+| <a href="https://gyazo.com/64bf2fc5180c3e513d3249cfcc352b80" target="_blank"><img src="https://i.gyazo.com/64bf2fc5180c3e513d3249cfcc352b80.gif" width="700" alt="野菜詳細ページ"></a> |
+|選んだ野菜の価格推移・栄養素・保存方法をまとめて確認できます。 |
 
-<a href="https://gyazo.com/334931406521b038763611aeca9f2c9d" target="_blank">
-  <img src="https://i.gyazo.com/7423b96518c8023e7fccf631d6b4a2c7.png" width="100%" alt="野菜一覧ページ">
-</a>
+| 🤖 **AIレシピ提案ページ** |
+| :--- |
+| <a href="https://gyazo.com/5b6a9c85c03ea76504efa99563382085" target="_blank"><img src="https://i.gyazo.com/5b6a9c85c03ea76504efa99563382085.gif" width="700" alt="AIレシピ提案ページ"></a> |
+|選んだ野菜からAIが自動でレシピを生成。気に入ったレシピは保存して、レシピ一覧からいつでも確認できます。|
 
-<p align="left">
-旬で価格の安い野菜を一覧でチェック！<br>
-今日のおすすめがひと目でわかります。
-</p>
+| 📖 **レシピ一覧ページ** |
+| :--- |
+| <a href="https://gyazo.com/d60c1c0539726f49489bef4e4bf37170" target="_blank"><img src="https://i.gyazo.com/d60c1c0539726f49489bef4e4bf37170.gif" width="700" alt="レシピ一覧ページ"></a> |
+|作成した買い物リストのカテゴリ整理。チェック・追加・削除・冷蔵庫登録もワンクリックで行えます。<br>リスト内の食材をまとめて冷蔵庫に登録することも可能です。 |
 
----
+| 🛒 **買い物リストページ** |
+| :--- |
+| <a href="https://gyazo.com/7b8bf1f956362797eb105aeb6fc4d66f" target="_blank"><img src="https://i.gyazo.com/7b8bf1f956362797eb105aeb6fc4d66f.gif" width="700" alt="買い物リストページ"></a> |
+|作成した買い物リストをカテゴリごとに確認や、チェック・追加・削除・冷蔵庫登録ができます。<br>また、買い物リストの食材をまとめて冷蔵庫に登録することも可能です。 |
 
-### 🔍 野菜詳細ページ（価格・栄養・保存方法を確認）
-
-<a href="https://gyazo.com/64bf2fc5180c3e513d3249cfcc352b80" target="_blank">
-  <img src="https://i.gyazo.com/64bf2fc5180c3e513d3249cfcc352b80.gif" width="100%" alt="野菜詳細ページ">
-</a>
-
-<p align="left">
-選んだ野菜の価格推移・栄養素・保存方法をまとめて確認できます。<br>
-旬の野菜をよりお得に、無駄なく使い切るための情報が満載です。
-</p>
-
----
-
-### 🤖 AIレシピ提案ページ（Gemini APIによる自動生成）
-
-<a href="https://gyazo.com/5b6a9c85c03ea76504efa99563382085" target="_blank">
-  <img src="https://i.gyazo.com/5b6a9c85c03ea76504efa99563382085.gif" width="100%" alt="AIレシピ提案ページ">
-</a>
-
-<p align="left">
-選んだ野菜からGemini APIが自動でレシピを提案。<br>
-必要な材料をもとに買い物リストも同時に作成します。
-</p>
-
----
-
-### 📖 レシピ一覧ページ
-
-<a href="https://gyazo.com/d60c1c0539726f49489bef4e4bf37170" target="_blank">
-  <img src="https://i.gyazo.com/d60c1c0539726f49489bef4e4bf37170.gif" width="100%" alt="レシピ一覧ページ">
-</a>
-
-<p align="left">
-保存したレシピを一覧表示し、材料や作り方を簡単に確認できます。<br>
-必要な食材はワンクリックで買い物リストに追加可能です。
-</p>
-
----
-
-### 🛍️ 買い物リストページ
-
-<a href="https://gyazo.com/7b8bf1f956362797eb105aeb6fc4d66f" target="_blank">
-  <img src="https://i.gyazo.com/7b8bf1f956362797eb105aeb6fc4d66f.gif" width="100%" alt="買い物リストページ">
-</a>
-
-<p align="left">
-レシピから自動生成された買い物リストをチェック形式で管理。<br>
-購入済み食材はワンクリックで冷蔵庫に登録できます。
-</p>
-
----
-
-### 🧊 冷蔵庫管理ページ（余った食材を登録・再提案）
-
-<a href="https://gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d" target="_blank">
-  <img src="https://i.gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d.gif" width="100%" alt="冷蔵庫管理ページ">
-</a>
-
-<p align="left">
-購入後の余り食材を冷蔵庫に登録し、在庫や期限を一元管理。<br>
-登録済みの食材をもとにAIが次のレシピを再提案してくれます。
-</p>
+| 🧊 **冷蔵庫管理ページ** |
+| :--- |
+| <a href="https://gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d" target="_blank"><img src="https://i.gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d.gif" width="700" alt="冷蔵庫管理ページ"></a> |
+|余った食材を登録し、在庫や期限を一元管理。登録済みの食材をもとにAIが新しいレシピを再提案します。 |
 
 ## 🧪 技術スタック
 
