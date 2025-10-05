@@ -2,7 +2,7 @@ class Api::V1::ShoppingListsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    current_user_shopping_list = @current_user.shopping_lists.includes(shopping_list_items: [ :ingredient, :recipe ])
+    current_user_shopping_list = @current_user.shopping_lists.includes(shopping_list_items: [ :ingredient, :recipe ]).order(created_at: :desc)
     render json: ShoppingListSerializer.new(current_user_shopping_list).serializable_hash.to_json
   end
 

@@ -55,29 +55,37 @@
 6. **余った食材から新しいレシピを再提案**  
 　└ 無駄なく、食材を最後まで使い切る
 
-## 🎬 デモ・スクリーンショット
+## 🧩 主要な機能
 
-### 🏷️ 1. トップページ（今日のおすすめ野菜をチェック）
-仕事帰りにアプリを開くと、旬で価格の安い野菜が一目でわかります。  
-  <a href="https://gyazo.com/334931406521b038763611aeca9f2c9d">
-    <img src="https://i.gyazo.com/7423b96518c8023e7fccf631d6b4a2c7.png" width="600" alt="トップページのスクリーンショット">
-  </a><br>
-  <sub>🔗 クリックで動画を見る（Gyazoで再生）</sub>
+| 🥕 **野菜一覧ページ（今日のおすすめ野菜をチェック）** |
+| :---: |
+| [![Image from Gyazo](https://i.gyazo.com/7423b96518c8023e7fccf631d6b4a2c7.png)](https://gyazo.com/334931406521b038763611aeca9f2c9d) |
+| <p align="left">旬で価格の安い野菜を一覧でチェック！<br>今日のおすすめがひと目でわかります。</p> |
 
+| 🔍 **野菜詳細ページ（価格・栄養・保存方法を確認）** |
+| :---: |
+| [![Image from Gyazo](https://i.gyazo.com/64bf2fc5180c3e513d3249cfcc352b80.gif)](https://gyazo.com/64bf2fc5180c3e513d3249cfcc352b80) |
+| <p align="left">選んだ野菜の価格推移・栄養素・保存方法をまとめて確認できます。<br>旬の野菜をよりお得に、無駄なく使い切るための情報が満載です。</p> |
 
----
+| 🤖 **AIレシピ提案ページ（Gemini APIによる自動生成）** |
+| :---: |
+| [![Image from Gyazo](https://i.gyazo.com/5b6a9c85c03ea76504efa99563382085.gif)](https://gyazo.com/5b6a9c85c03ea76504efa99563382085) |
+| <p align="left">選んだ野菜からGemini APIが自動でレシピを提案。<br>必要な材料をもとに買い物リストも同時に作成します。</p> |
 
-### 🤖 2. AIレシピ提案（Gemini APIによる自動生成）
-選んだ野菜から、AIがレシピを自動提案します。  
-必要な材料も同時に確認でき、買い物リストを自動作成。  
-![AIレシピ生成画面](https://i.gyazo.com/682a6172df402d2c564c9f7a4e0904a4.gif)
+| 📖 **レシピ一覧ページ** |
+| :---: |
+| [![Image from Gyazo](https://i.gyazo.com/d60c1c0539726f49489bef4e4bf37170.gif)](https://gyazo.com/d60c1c0539726f49489bef4e4bf37170) |
+| <p align="left">保存したレシピを一覧表示し、材料や作り方を簡単に確認できます。<br>必要な食材はワンクリックで買い物リストに追加可能です。</p> |
 
----
+| 🛍️ **買い物リストページ** |
+| :---: |
+| [![Image from Gyazo](https://i.gyazo.com/7b8bf1f956362797eb105aeb6fc4d66f.gif)](https://gyazo.com/7b8bf1f956362797eb105aeb6fc4d66f) |
+| <p align="left">レシピから自動生成された買い物リストをチェック形式で管理。<br>購入済み食材はワンクリックで冷蔵庫に登録できます。</p> |
 
-### 🧊 3. 冷蔵庫管理（余った食材を登録・再提案）
-購入後の余り食材は冷蔵庫に登録。  
-期限や在庫を管理し、次のレシピ提案に活かします。  
-![冷蔵庫管理画面](https://i.gyazo.com/ebf8abbca21b664510897f7bbad13ddc.gif)
+| 🧊 **冷蔵庫管理ページ（余った食材を登録・再提案）** |
+| :---: |
+| [![Image from Gyazo](https://i.gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d.gif)](https://gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d) |
+| <p align="left">購入後の余り食材を冷蔵庫に登録し、在庫や期限を一元管理。<br>登録済みの食材をもとにAIが次のレシピを再提案してくれます。</p> |
 
 ## 🧪 技術スタック
 
