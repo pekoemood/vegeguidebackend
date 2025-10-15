@@ -14,10 +14,12 @@ class GeminiImageClient
       Create a highly realistic, high-resolution **square** food photograph featuring the dish #{name}.
       The plating should be classic **center-framed (日の丸構図)**, with the dish prominently positioned in the middle, shot from a **top-down or a slight 45-degree angle**.
 
-      Serve the dish on a **clean, minimalist white plate** with **#{ingredients_text}**.
-      The setup is on a **light, natural wood table**, bathed in **soft, diffused natural window light** creating subtle, natural shadows.
+      Present the dish as a **beautifully prepared meal**, featuring **#{ingredients_text}** that appear **properly prepared and harmoniously combined**, as part of a finished dish — not raw or unprocessed ingredients.  
+      Serve it on a **clean, minimalist white plate**, as a **ready-to-eat home-style meal**, carefully presented and inviting.
 
-      The image must capture a **rich, glossy sauce**, **delicate, wispy steam**, **vibrant color contrast**, and authentic textures.
+      The setup is on a **light, natural wood table**, bathed in **soft, diffused natural window light**, creating subtle, natural shadows.
+
+      The image must capture a **rich, glossy sauce**, **delicate, wispy steam**, **vibrant color contrast**, and authentic textures.  
       To add an everyday kitchen aesthetic, include a **neatly folded linen napkin** and **simple, elegant cutlery** subtly placed at the very edge of the frame, hinting at a casual setting.
 
       **Exclude all text, typography, labels, logos, or signage from the image.**
