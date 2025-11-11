@@ -1,6 +1,6 @@
 class GeminiImageClient
   include HTTParty
-  base_uri "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent"
+  base_uri "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent"
 
   def initialize(params = {})
     @api_key = Rails.application.credentials.dig(:gemini, :api_key)
